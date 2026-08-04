@@ -30,7 +30,7 @@
       "status": "Planning",
       "currentEvent": "Planning",
       "nextEvent": "2026-09-20",
-      "partner": "Revive"
+      "partner": "SpaceSpeakers"
     },
     {
       "name": "Về Làng Series",
@@ -56,6 +56,21 @@
       "name": "Revive",
       "project": "Weekly Funrun",
       "status": "Negotiating"
+    },
+    {
+      "name": "Stretch.vn",
+      "project": "Về Làng Series",
+      "status": "Confirmed"
+    },
+    {
+      "name": "ONWAY",
+      "project": "Về Làng Series",
+      "status": "Negotiating"
+    },
+    {
+      "name": "Mana Hydration",
+      "project": "Events TBU",
+      "status": "Planning"
     }
   ],
 
