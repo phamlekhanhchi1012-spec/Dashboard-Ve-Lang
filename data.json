@@ -90,8 +90,8 @@
       "description": "Community run · Sunday"
     },
     {
-      "date": "2026-08-06",
-      "title": "Training Run with SS",
+      "date": "2026-08-19",
+      "title": "Training SpaceSpeakers",
       "description": "Mid-week training session"
     },
     {
@@ -108,28 +108,28 @@
 
   "tasks": [
     {
-      "title": "Finalize Event Artwork",
-      "project": "Events",
+      "title": "Trả bài Truyền thông cho nhà tài trợ",
+      "project": "Về Làng",
       "priority": "High",
-      "due": "2026-08-02"
+      "due": "2026-08-05"
     },
     {
-      "title": "Confirm Venue Layout",
+      "title": "Bán vé và Launch",
       "project": "Về Làng Series",
       "priority": "Medium",
-      "due": "2026-08-07"
+      "due": "2026-08-05"
     },
     {
-      "title": "Sponsor Follow-up",
+      "title": "Proposal Follow-up",
       "project": "SS Music Run",
-      "priority": "Low",
-      "due": "2026-08-10"
+      "priority": "High",
+      "due": "2026-08-08"
     },
     {
       "title": "Revive Contract & Deliver Quyền lợi truyền thông",
       "project": "Revive",
       "priority": "Medium",
-      "due": null
+      "due": "2026-08-08"
     }
   ]
 }
