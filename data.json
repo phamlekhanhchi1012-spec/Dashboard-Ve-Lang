@@ -9,6 +9,7 @@
     {
       "name": "Weekly Funrun",
       "status": "On Track",
+      "group": "Active",
       "description": "Recurring Sunday community runs with rotating locations.",
       "currentEvent": "Fun Run (Cầu Bason Quận 1)",
       "nextEvent": "2026-08-08",
@@ -17,6 +18,7 @@
     {
       "name": "Events",
       "status": "Idea",
+      "group": "Backlog",
       "description": "Standalone experiences combining sport, culture and social connection.",
       "currentEvent": "Workshop đĩa than",
       "nextEvent": "2026-08-30",
@@ -25,6 +27,7 @@
     {
       "name": "SS Music Run",
       "status": "Planning",
+      "group": "Backlog",
       "description": "A music-driven run planned for September with sponsor integration.",
       "currentEvent": "Concept Planning",
       "nextEvent": "Tháng 9, chưa chốt ngày",
@@ -33,10 +36,29 @@
     {
       "name": "Về Làng Series",
       "status": "Preparing",
+      "group": "Active",
       "description": "A cultural series focused on stories, identity and shared experiences.",
       "currentEvent": "Về Làng #1",
       "nextEvent": "2026-08-15",
       "partner": "Stretch.vn, PACE Training"
+    },
+    {
+      "name": "REDLINE 23.08 Rumble Events",
+      "status": "Backlog",
+      "group": "Backlog",
+      "description": "Rumble Events planning for the Redline showcase.",
+      "currentEvent": "Partner planning",
+      "nextEvent": "2026-08-23",
+      "partner": "Activefox × Redline"
+    },
+    {
+      "name": "Under Armour × Redline",
+      "status": "Backlog",
+      "group": "Backlog",
+      "description": "Under Armour collaboration concept for September.",
+      "currentEvent": "Partner planning",
+      "nextEvent": "2026-09-13",
+      "partner": "Under Armour × Redline"
     }
   ],
 
@@ -93,6 +115,16 @@
       "date": "2026-08-15",
       "title": "Về Làng #1",
       "description": "Culture and community event"
+    },
+    {
+      "date": "2026-08-23",
+      "title": "REDLINE 23.08 Rumble Events",
+      "description": "Partner: Activefox × Redline"
+    },
+    {
+      "date": "2026-09-13",
+      "title": "Under Armour × Redline",
+      "description": "Partner: Under Armour × Redline"
     },
     {
       "date": "2026-09-20",

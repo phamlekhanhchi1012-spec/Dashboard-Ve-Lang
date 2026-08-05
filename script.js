@@ -29,10 +29,10 @@ async function loadDashboard() {
     }
 
     const activeProjects = Array.isArray(data.projects)
-      ? data.projects.filter(project => ['On Track', 'Active', 'Preparing'].includes(project.status))
+      ? data.projects.filter(project => project.group !== 'Backlog')
       : [];
     const backlogProjects = Array.isArray(data.projects)
-      ? data.projects.filter(project => !['On Track', 'Active', 'Preparing'].includes(project.status))
+      ? data.projects.filter(project => project.group === 'Backlog')
       : [];
 
     const renderProjectCards = (projects) => projects
@@ -76,12 +76,13 @@ async function loadDashboard() {
     }
 
     if (timelineCard && Array.isArray(data.timeline)) {
-      timelineCard.innerHTML = data.timeline
+      const sortedTimeline = [...data.timeline].sort((a, b) => new Date(a.date) - new Date(b.date));
+      timelineCard.innerHTML = sortedTimeline
         .map(entry => {
           const formattedDate = formatDate(entry.date);
           const [day, month] = formattedDate.split(' ');
           return `
-            <div class="timeline-item">
+            <div class="timeline-item timeline-item-large">
               <div class="timeline-date"><span>${day}</span><small>${month}</small></div>
               <div class="timeline-content"><strong>${entry.title}</strong><p>${entry.description || ''}</p></div>
             </div>`;
