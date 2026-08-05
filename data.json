@@ -1,11 +1,6 @@
 {
   "team": [
-    "Tin",
-    "Tai",
-    "Chi",
-    "Hung",
-    "James",
-    "Nguyen"
+    "LANGHOOD team"
   ],
 
   "objective": "Langhood Project Hub",
@@ -14,17 +9,17 @@
     {
       "name": "Weekly Funrun",
       "status": "On Track",
-      "description": "Recurring Sunday community runs with rotating themes and partners.",
-      "currentEvent": "Funrun",
+      "description": "Recurring Sunday community runs with rotating locations.",
+      "currentEvent": "Fun Run (Cầu Bason Quận 1)",
       "nextEvent": "2026-08-08",
       "partner": "no"
     },
     {
       "name": "Events",
-      "status": "Planning",
+      "status": "Idea",
       "description": "Standalone experiences combining sport, culture and social connection.",
-      "currentEvent": "WS đĩa than",
-      "nextEvent": "2026-08-23",
+      "currentEvent": "Workshop đĩa than",
+      "nextEvent": "2026-08-30",
       "partner": "Sterik Cafe"
     },
     {
@@ -41,13 +36,13 @@
       "description": "A cultural series focused on stories, identity and shared experiences.",
       "currentEvent": "Về Làng #1",
       "nextEvent": "2026-08-15",
-      "partner": "Stretch.vn, Pace"
+      "partner": "Stretch.vn, PACE Training"
     }
   ],
 
   "partners": [
     {
-      "name": "PACE",
+      "name": "PACE Training",
       "project": "Training Program",
       "status": "Active"
     },
@@ -74,7 +69,7 @@
     {
       "name": "Mana Hydration",
       "project": "Events",
-      "status": "Planning (chưa bàn)"
+      "status": "Idea"
     },
     {
       "name": "Redline",

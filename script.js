@@ -5,9 +5,11 @@ async function loadDashboard() {
 
     const teamList = document.getElementById('teamList');
     const activeProjectsCount = document.getElementById('activeProjectsCount');
+    const backlogProjectsCount = document.getElementById('backlogProjectsCount');
     const partnershipCount = document.getElementById('partnershipCount');
     const openItemsCount = document.getElementById('openItemsCount');
-    const projectGrid = document.getElementById('projectGrid');
+    const activeProjectGrid = document.getElementById('activeProjectGrid');
+    const backlogProjectGrid = document.getElementById('backlogProjectGrid');
     const timelineCard = document.getElementById('timelineCard');
     const partnerList = document.getElementById('partnerList');
     const taskBoard = document.getElementById('taskBoard');
@@ -26,33 +28,51 @@ async function loadDashboard() {
       openItemsCount.textContent = String(data.tasks?.length ?? 0);
     }
 
-    if (projectGrid && Array.isArray(data.projects)) {
-      projectGrid.innerHTML = data.projects
-        .map((project, index) => {
-          const statusClass = getPillClass(project.status);
-          const partnerLabel = project.partner || 'TBD';
-          const nextEvent = formatDate(project.nextEvent);
-          const currentLabel = project.currentEvent || project.currentPhase || 'TBD';
-          const description = project.description
-            ? project.description
-            : `${project.name} is ${project.status.toLowerCase()} with partner ${partnerLabel}.`;
+    const activeProjects = Array.isArray(data.projects)
+      ? data.projects.filter(project => ['On Track', 'Active', 'Preparing'].includes(project.status))
+      : [];
+    const backlogProjects = Array.isArray(data.projects)
+      ? data.projects.filter(project => !['On Track', 'Active', 'Preparing'].includes(project.status))
+      : [];
 
-          return `
-            <article class="project-card">
-              <div class="project-card-top">
-                <span class="project-index">${String(index + 1).padStart(2, '0')}</span>
-                <span class="pill ${statusClass}">${project.status}</span>
-              </div>
-              <h3>${project.name}</h3>
-              <p class="project-description">${description}</p>
-              <div class="project-meta">
-                <div><span>Current</span><strong>${currentLabel}</strong></div>
-                <div><span>Next</span><strong>${nextEvent}</strong></div>
-                <div><span>Partner</span><strong>${partnerLabel}</strong></div>
-              </div>
-            </article>`;
-        })
-        .join('');
+    const renderProjectCards = (projects) => projects
+      .map((project, index) => {
+        const statusClass = getPillClass(project.status);
+        const partnerLabel = project.partner || 'TBD';
+        const nextEvent = formatDate(project.nextEvent);
+        const currentLabel = project.currentEvent || project.currentPhase || 'TBD';
+        const description = project.description
+          ? project.description
+          : `${project.name} is ${project.status.toLowerCase()} with partner ${partnerLabel}.`;
+
+        return `
+          <article class="project-card">
+            <div class="project-card-top">
+              <span class="project-index">${String(index + 1).padStart(2, '0')}</span>
+              <span class="pill ${statusClass}">${project.status}</span>
+            </div>
+            <h3>${project.name}</h3>
+            <p class="project-description">${description}</p>
+            <div class="project-meta">
+              <div><span>Current</span><strong>${currentLabel}</strong></div>
+              <div><span>Next</span><strong>${nextEvent}</strong></div>
+              <div><span>Partner</span><strong>${partnerLabel}</strong></div>
+            </div>
+          </article>`;
+      })
+      .join('');
+
+    if (activeProjectsCount) {
+      activeProjectsCount.textContent = String(activeProjects.length);
+    }
+    if (backlogProjectsCount) {
+      backlogProjectsCount.textContent = String(backlogProjects.length);
+    }
+    if (activeProjectGrid) {
+      activeProjectGrid.innerHTML = renderProjectCards(activeProjects);
+    }
+    if (backlogProjectGrid) {
+      backlogProjectGrid.innerHTML = renderProjectCards(backlogProjects);
     }
 
     if (timelineCard && Array.isArray(data.timeline)) {

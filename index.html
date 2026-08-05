@@ -58,7 +58,13 @@
         <article class="summary-card">
           <span class="eyebrow">Active Projects</span>
           <strong class="metric" id="activeProjectsCount">4</strong>
-          <p>Across weekly runs, events and cultural series.</p>
+          <p>Projects currently in execution.</p>
+        </article>
+
+        <article class="summary-card">
+          <span class="eyebrow">Backlog</span>
+          <strong class="metric" id="backlogProjectsCount">0</strong>
+          <p>Projects waiting for planning or idea approval.</p>
         </article>
 
         <article class="summary-card">
@@ -80,7 +86,15 @@
           <a href="#tasks">View open items</a>
         </div>
 
-        <div class="project-grid" id="projectGrid"></div>
+        <div class="section-heading">
+          <div><span class="eyebrow">Current</span><h2>Active</h2></div>
+        </div>
+        <div class="project-grid" id="activeProjectGrid"></div>
+
+        <div class="section-heading">
+          <div><span class="eyebrow">Future</span><h2>Backlog</h2></div>
+        </div>
+        <div class="project-grid" id="backlogProjectGrid"></div>
       </section>
 
       <div class="two-column-layout">
