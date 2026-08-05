@@ -15,17 +15,17 @@
       "name": "Weekly Funrun",
       "status": "On Track",
       "description": "Recurring Sunday community runs with rotating themes and partners.",
-      "currentEvent": "Funrun with PACE",
+      "currentEvent": "Funrun",
       "nextEvent": "2026-08-08",
-      "partner": "PACE"
+      "partner": "no"
     },
     {
       "name": "Events",
-      "status": "Need Observation",
+      "status": "Planning",
       "description": "Standalone experiences combining sport, culture and social connection.",
       "currentEvent": "Sip After Sweat",
-      "nextEvent": "2026-08-14",
-      "partner": "Afterglow"
+      "nextEvent": "2026-08-23",
+      "partner": "Sterik Cafe"
     },
     {
       "name": "SS Music Run",
@@ -33,7 +33,7 @@
       "description": "A music-driven run planned for September with sponsor integration.",
       "currentEvent": "Concept Planning",
       "nextEvent": "2026-09-20",
-      "partner": "Revive"
+      "partner": "SS"
     },
     {
       "name": "Về Làng Series",
@@ -41,7 +41,7 @@
       "description": "A cultural series focused on stories, identity and shared experiences.",
       "currentEvent": "Về Làng #1",
       "nextEvent": "2026-08-15",
-      "partner": "Stretch.vn"
+      "partner": "Stretch.vn, Pace"
     }
   ],
 
