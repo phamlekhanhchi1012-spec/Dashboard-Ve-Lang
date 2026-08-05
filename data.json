@@ -8,36 +8,40 @@
     "Nguyen"
   ],
 
-  "objective": "Build a culture community in Vietnam.",
+  "objective": "Langhood Project Hub",
 
   "projects": [
     {
       "name": "Weekly Funrun",
       "status": "On Track",
-      "currentEvent": "Funrun",
+      "description": "Recurring Sunday community runs with rotating themes and partners.",
+      "currentEvent": "Funrun with PACE",
       "nextEvent": "2026-08-08",
-      "partner": "N/A"
+      "partner": "PACE"
     },
     {
       "name": "Events",
       "status": "Need Observation",
-      "currentEvent": "SS Training Run",
-      "nextEvent": "2026-08-19",
-      "partner": "SpaceSpeakers"
+      "description": "Standalone experiences combining sport, culture and social connection.",
+      "currentEvent": "Sip After Sweat",
+      "nextEvent": "2026-08-14",
+      "partner": "Afterglow"
     },
     {
       "name": "SS Music Run",
       "status": "Planning",
-      "currentEvent": "Planning",
+      "description": "A music-driven run planned for September with sponsor integration.",
+      "currentEvent": "Concept Planning",
       "nextEvent": "2026-09-20",
-      "partner": "SpaceSpeakers"
+      "partner": "Revive"
     },
     {
       "name": "Về Làng Series",
       "status": "Preparing",
+      "description": "A cultural series focused on stories, identity and shared experiences.",
       "currentEvent": "Về Làng #1",
       "nextEvent": "2026-08-15",
-      "partner": "Pace, Revive, Stretch.vn"
+      "partner": "Stretch.vn"
     }
   ],
 
@@ -48,8 +52,8 @@
       "status": "Active"
     },
     {
-      "name": "Afterglow, Drinking and Healing",
-      "project": "Beer Run",
+      "name": "Afterglow",
+      "project": "Sip After Sweat",
       "status": "Confirmed"
     },
     {
@@ -69,7 +73,12 @@
     },
     {
       "name": "Mana Hydration",
-      "project": "Events TBU",
+      "project": "Events",
+      "status": "Planning"
+    },
+    {
+      "name": "Redline",
+      "project": "TBD",
       "status": "Planning"
     }
   ],
@@ -77,38 +86,50 @@
   "timeline": [
     {
       "date": "2026-08-08",
-      "title": "Weekly Funrun"
+      "title": "Weekly Funrun",
+      "description": "Community run · Sunday"
     },
     {
       "date": "2026-08-06",
-      "title": "Training Run with SS"
+      "title": "Training Run with SS",
+      "description": "Mid-week training session"
     },
     {
       "date": "2026-08-15",
-      "title": "Về Làng #1"
+      "title": "Về Làng #1",
+      "description": "Culture and community event"
     },
     {
       "date": "2026-09-20",
-      "title": "SS Music Run"
+      "title": "SS Music Run",
+      "description": "Planning stage"
     }
   ],
 
   "tasks": [
     {
-      "title": "Ve Làng #1 Preparation",
-      "priority": "High"
+      "title": "Finalize Event Artwork",
+      "project": "Events",
+      "priority": "High",
+      "due": "2026-08-02"
+    },
+    {
+      "title": "Confirm Venue Layout",
+      "project": "Về Làng Series",
+      "priority": "Medium",
+      "due": "2026-08-07"
+    },
+    {
+      "title": "Sponsor Follow-up",
+      "project": "SS Music Run",
+      "priority": "Low",
+      "due": "2026-08-10"
     },
     {
       "title": "Revive Contract & Deliver Quyền lợi truyền thông",
-      "priority": "Medium"
-    },
-    {
-      "title": "SS Music Run Preparation - Proposal",
-      "priority": "High"
-    },
-    {
-      "title": "SS Weekly Training - Proposal",
-      "priority": "Medium"
+      "project": "Revive",
+      "priority": "Medium",
+      "due": null
     }
   ]
 }

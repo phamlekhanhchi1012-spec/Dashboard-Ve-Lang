@@ -27,7 +27,7 @@
 
       <div class="sidebar-note">
         <span class="eyebrow">Team</span>
-        <p>Tín · Tài · Chi · Hưng · James · Nguyên</p>
+        <p id="teamList">Tín · Tài · Chi · Hưng · James · Nguyên</p>
       </div>
     </aside>
 
@@ -57,19 +57,19 @@
 
         <article class="summary-card">
           <span class="eyebrow">Active Projects</span>
-          <strong class="metric">4</strong>
+          <strong class="metric" id="activeProjectsCount">4</strong>
           <p>Across weekly runs, events and cultural series.</p>
         </article>
 
         <article class="summary-card">
           <span class="eyebrow">Partnership Deals</span>
-          <strong class="metric">7</strong>
+          <strong class="metric" id="partnershipCount">7</strong>
           <p>Active, confirmed or currently in discussion.</p>
         </article>
 
         <article class="summary-card">
           <span class="eyebrow">Open Items</span>
-          <strong class="metric">18</strong>
+          <strong class="metric" id="openItemsCount">18</strong>
           <p>Tasks requiring follow-up across all projects.</p>
         </article>
       </section>
@@ -80,71 +80,18 @@
           <a href="#tasks">View open items</a>
         </div>
 
-        <div class="project-grid">
-          <article class="project-card">
-            <div class="project-card-top"><span class="project-index">01</span><span class="pill success">On Track</span></div>
-            <h3>Weekly Funrun</h3>
-            <p class="project-description">Recurring Sunday community runs with rotating themes and partners.</p>
-            <div class="project-meta">
-              <div><span>Current Event</span><strong>Funrun with PACE</strong></div>
-              <div><span>Next Event</span><strong>02 Aug</strong></div>
-              <div><span>Partner</span><strong>PACE</strong></div>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <div class="project-card-top"><span class="project-index">02</span><span class="pill warning">Need Observation</span></div>
-            <h3>Events</h3>
-            <p class="project-description">Standalone experiences combining sport, culture and social connection.</p>
-            <div class="project-meta">
-              <div><span>Current Event</span><strong>Sip After Sweat</strong></div>
-              <div><span>Next Event</span><strong>14 Aug</strong></div>
-              <div><span>Partner</span><strong>Afterglow</strong></div>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <div class="project-card-top"><span class="project-index">03</span><span class="pill neutral">Planning</span></div>
-            <h3>SS Music Run</h3>
-            <p class="project-description">A music-driven run planned for September with sponsor integration.</p>
-            <div class="project-meta">
-              <div><span>Current Phase</span><strong>Concept Planning</strong></div>
-              <div><span>Target</span><strong>September</strong></div>
-              <div><span>Partner</span><strong>Revive</strong></div>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <div class="project-card-top"><span class="project-index">04</span><span class="pill accent">Preparing</span></div>
-            <h3>Về Làng Series</h3>
-            <p class="project-description">A cultural series focused on stories, identity and shared experiences.</p>
-            <div class="project-meta">
-              <div><span>Current Event</span><strong>Về Làng #1</strong></div>
-              <div><span>Date</span><strong>15 Aug</strong></div>
-              <div><span>Partner</span><strong>Community</strong></div>
-            </div>
-          </article>
-        </div>
+        <div class="project-grid" id="projectGrid"></div>
       </section>
 
       <div class="two-column-layout">
         <section class="section-block" id="roadmap">
           <div class="section-heading"><div><span class="eyebrow">Schedule</span><h2>Roadmap</h2></div></div>
-          <div class="timeline-card">
-            <div class="timeline-item"><div class="timeline-date"><span>02</span><small>AUG</small></div><div class="timeline-content"><strong>Weekly Funrun with PACE</strong><p>Community run · Sunday</p></div></div>
-            <div class="timeline-item"><div class="timeline-date"><span>06</span><small>AUG</small></div><div class="timeline-content"><strong>Training Run with SS</strong><p>Mid-week training session</p></div></div>
-            <div class="timeline-item"><div class="timeline-date"><span>15</span><small>AUG</small></div><div class="timeline-content"><strong>Về Làng #1</strong><p>Culture and community event</p></div></div>
-            <div class="timeline-item"><div class="timeline-date"><span>TBD</span><small>SEP</small></div><div class="timeline-content"><strong>SS Music Run</strong><p>Planning stage</p></div></div>
-          </div>
+          <div class="timeline-card" id="timelineCard"></div>
         </section>
 
         <section class="section-block" id="partnerships">
           <div class="section-heading"><div><span class="eyebrow">CRM</span><h2>Partnerships</h2></div></div>
-          <div class="partner-list">
-            <article class="partner-card"><div class="partner-avatar">P</div><div class="partner-info"><strong>PACE</strong><span>Training Program</span></div><span class="pill success">Active</span></article>
-            <article class="partner-card"><div class="partner-avatar">A</div><div class="partner-info"><strong>Afterglow</strong><span>Sip After Sweat</span></div><span class="pill neutral">Confirmed</span></article>
-            <article class="partner-card"><div class="partner-avatar">R</div><div class="partner-info"><strong>Revive</strong><span>Weekly Funrun</span></div><span class="pill warning">Negotiating</span></article>
-          </div>
+          <div class="partner-list" id="partnerList"></div>
         </section>
       </div>
 
@@ -154,11 +101,7 @@
           <span class="task-count">3 priority items</span>
         </div>
 
-        <div class="task-board">
-          <article class="task-row"><label class="task-main"><input type="checkbox"><span><strong>Finalize Event Artwork</strong><small>Events · Due 02 Aug</small></span></label><span class="priority high">High</span></article>
-          <article class="task-row"><label class="task-main"><input type="checkbox"><span><strong>Confirm Venue Layout</strong><small>Về Làng Series · Due 07 Aug</small></span></label><span class="priority medium">Medium</span></article>
-          <article class="task-row"><label class="task-main"><input type="checkbox"><span><strong>Sponsor Follow-up</strong><small>SS Music Run · Due 10 Aug</small></span></label><span class="priority low">Low</span></article>
-        </div>
+        <div class="task-board" id="taskBoard"></div>
       </section>
 
       <section class="section-block" id="data-content">
@@ -174,16 +117,12 @@
 
   <script src="script.js"></script>
   <script>
-    const button = document.getElementById("darkModeButton");
-    button.addEventListener("click", () => {
-      document.body.classList.toggle("dark");
-      button.textContent = document.body.classList.contains("dark") ? "Light" : "Dark";
+    window.addEventListener('load', () => {
+      const contentSection = document.getElementById('content');
+      if (!contentSection) {
+        console.warn('Dashboard content failed to load. Check script.js and data.json.');
+      }
     });
-
-    const today = new Date().toLocaleDateString("en-GB", {
-      day: "2-digit", month: "short", year: "numeric"
-    });
-    document.getElementById("lastUpdated").textContent = `Last updated ${today}`;
   </script>
 </body>
 </html>
