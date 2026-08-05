@@ -23,7 +23,7 @@
       "name": "Events",
       "status": "Planning",
       "description": "Standalone experiences combining sport, culture and social connection.",
-      "currentEvent": "Sip After Sweat",
+      "currentEvent": "WS đĩa than",
       "nextEvent": "2026-08-23",
       "partner": "Sterik Cafe"
     },
@@ -32,7 +32,7 @@
       "status": "Planning",
       "description": "A music-driven run planned for September with sponsor integration.",
       "currentEvent": "Concept Planning",
-      "nextEvent": "2026-09-20",
+      "nextEvent": "Tháng 9, chưa chốt ngày",
       "partner": "SS"
     },
     {
@@ -53,7 +53,7 @@
     },
     {
       "name": "Afterglow",
-      "project": "Sip After Sweat",
+      "project": "Beer Run",
       "status": "Confirmed"
     },
     {
@@ -69,12 +69,12 @@
     {
       "name": "ONWAY",
       "project": "Về Làng Series",
-      "status": "Negotiating"
+      "status": "Negotiating (chưa chốt sẽ làm gì)"
     },
     {
       "name": "Mana Hydration",
       "project": "Events",
-      "status": "Planning"
+      "status": "Planning (chưa bàn)"
     },
     {
       "name": "Redline",
