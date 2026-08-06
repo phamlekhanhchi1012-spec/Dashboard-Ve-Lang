@@ -97,17 +97,32 @@
         <div class="project-grid" id="backlogProjectGrid"></div>
       </section>
 
-      <div class="two-column-layout">
-        <section class="section-block" id="roadmap">
-          <div class="section-heading"><div><span class="eyebrow">Schedule</span><h2>Roadmap</h2></div></div>
-          <div class="timeline-card" id="timelineCard"></div>
-        </section>
+      <section class="section-block" id="roadmap">
+        <div class="section-heading"><div><span class="eyebrow">Schedule</span><h2>Roadmap</h2></div></div>
+        <div class="roadmap-shell">
+          <div class="roadmap-toolbar">
+            <div class="roadmap-range" id="roadmapRange">Loading roadmap…</div>
+            <div class="roadmap-summary" id="roadmapSummary"></div>
+          </div>
 
-        <section class="section-block" id="partnerships">
-          <div class="section-heading"><div><span class="eyebrow">CRM</span><h2>Partnerships</h2></div></div>
-          <div class="partner-list" id="partnerList"></div>
-        </section>
-      </div>
+          <div class="gantt-scroll">
+            <div class="gantt-grid" id="ganttGrid">
+              <div class="gantt-header">
+                <div class="gantt-header-left">
+                  <span class="gantt-label">Project</span>
+                </div>
+                <div class="gantt-timeline-header" id="ganttTimelineHeader"></div>
+              </div>
+              <div class="gantt-rows" id="ganttRows"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-block" id="partnerships">
+        <div class="section-heading"><div><span class="eyebrow">CRM</span><h2>Partnerships</h2></div></div>
+        <div class="partner-list" id="partnerList"></div>
+      </section>
 
       <section class="section-block" id="tasks">
         <div class="section-heading">
