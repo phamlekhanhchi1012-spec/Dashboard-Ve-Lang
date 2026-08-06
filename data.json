@@ -9,9 +9,9 @@
       "status": "On Track",
       "group": "Active",
       "description": "Recurring Sunday community runs with rotating locations.",
-      "currentEvent": "Fun Run (Cầu Bason Quận 1)",
+      "currentEvent": "Fun Run (Cầu Ba Son, Quận 1)",
       "nextEvent": "2026-08-08",
-      "partner": "no"
+      "partner": "No partner"
     },
     {
       "name": "Events",
@@ -20,13 +20,16 @@
       "description": "Standalone experiences combining sport, culture and social connection.",
       "currentEvent": "Workshop đĩa than",
       "nextEvent": "2026-08-30",
-      "partner": "Sterik Cafe and Urban Sketches"
+      "partner": "Sterik Cafe and Urban Sketchers"
     },
     {
       "name": "Training Program with SS (Global City)",
       "status": "Planning",
       "group": "Backlog",
-      "description": "A structured training program with SpaceSpeakers."
+      "description": "A structured training program with SpaceSpeakers.",
+      "currentEvent": "Planning",
+      "nextEvent": "TBD",
+      "partner": "SpaceSpeakers"
     },
     {
       "name": "SS Music Run",
@@ -38,7 +41,7 @@
       "partner": "SpaceSpeakers"
     },
     {
-      "name": "Về Làng ",
+      "name": "Về Làng",
       "status": "Preparing",
       "group": "Active",
       "description": "A cultural series focused on stories, identity and shared experiences.",
@@ -48,21 +51,21 @@
     },
     {
       "name": "REDLINE 23.08 Rumble Events",
-      "status": "Backlog",
+      "status": "Planning",
       "group": "Backlog",
       "description": "Rumble Events planning for the Redline showcase.",
-      "currentEvent": "Partner planning",
+      "currentEvent": "Partner Planning",
       "nextEvent": "2026-08-23",
-      "partner": "Activefox × Redline"
+      "partner": "ActiveFox × REDLINE"
     },
     {
-      "name": "Under Armour × Redline",
-      "status": "Backlog",
+      "name": "Under Armour × REDLINE",
+      "status": "Planning",
       "group": "Backlog",
       "description": "Under Armour collaboration concept for September.",
-      "currentEvent": "Partner planning",
+      "currentEvent": "Partner Planning",
       "nextEvent": "2026-09-13",
-      "partner": "Under Armour × Redline"
+      "partner": "Under Armour × REDLINE"
     }
   ],
   "partners": [
@@ -78,7 +81,7 @@
     },
     {
       "name": "Revive",
-      "project": "Weekly Funrun, Về Làng,..",
+      "project": "Weekly Funrun, Về Làng",
       "status": "Negotiating"
     },
     {
@@ -88,8 +91,8 @@
     },
     {
       "name": "ONWAY",
-      "project": "Weekly Funrun, Về Làng,..",
-      "status": "Negotiating (chưa chốt sẽ làm gì)"
+      "project": "Weekly Funrun, Về Làng",
+      "status": "Negotiating - Scope TBD"
     },
     {
       "name": "Mana Hydration",
@@ -103,7 +106,7 @@
     },
     {
       "name": "Bơnana",
-      "project": "Events (Vẽ Tranh)",
+      "project": "Events - Vẽ Tranh",
       "status": "Idea"
     },
     {
@@ -114,25 +117,24 @@
   ],
   "timeline": [
     {
-
+      "date": "2026-08-15",
+      "title": "Về Làng",
+      "description": "Culture event"
+    },
+    {
       "date": "2026-08-19",
       "title": "Training SpaceSpeakers",
       "description": "Mid-week training session"
     },
     {
-      "date": "2026-08-15",
-      "title": "Về Làng #1",
-      "description": "Culture event"
-    },
-    {
       "date": "2026-08-23",
       "title": "REDLINE 23.08 Rumble Events",
-      "description": "Partner: Activefox × Redline"
+      "description": "Partner: ActiveFox × REDLINE"
     },
     {
       "date": "2026-09-13",
-      "title": "Under Armour × Redline",
-      "description": "Partner: Under Armour × Redline"
+      "title": "Under Armour × REDLINE",
+      "description": "Partner: Under Armour × REDLINE"
     },
     {
       "date": "2026-09-20",
@@ -142,25 +144,25 @@
   ],
   "tasks": [
     {
-      "title": "Trả bài Truyền thông cho nhà tài trợ",
+      "title": "Trả bài truyền thông cho nhà tài trợ",
       "project": "Về Làng",
       "priority": "High",
       "due": "2026-08-05"
     },
     {
-      "title": "Bán vé và Launch",
+      "title": "Bán vé và launch",
       "project": "Về Làng",
       "priority": "Medium",
       "due": "2026-08-05"
     },
     {
-      "title": "Proposal Follow-up",
+      "title": "Proposal follow-up",
       "project": "SS Music Run",
       "priority": "High",
       "due": "2026-08-08"
     },
     {
-      "title": "Revive Contract & Deliver Quyền lợi truyền thông",
+      "title": "Revive contract và deliver quyền lợi truyền thông",
       "project": "Revive",
       "priority": "Medium",
       "due": "2026-08-08"
@@ -171,31 +173,31 @@
       {
         "id": "activefox",
         "name": "ActiveFox",
-        "role": "Training partner",
+        "role": "Training Partner",
         "color": "#F26A2E"
       },
       {
         "id": "redline",
         "name": "REDLINE",
-        "role": "Prize Sponsorship, đối tác truyền thông",
+        "role": "Prize Sponsor & Media Partner",
         "color": "#E83224"
       },
       {
         "id": "pace",
         "name": "PACE Training",
-        "role": "Training platform partner",
+        "role": "Training Platform Partner",
         "color": "#2FAF7A"
       },
       {
         "id": "revive",
         "name": "Revive",
-        "role": "Community partner",
+        "role": "Community Partner",
         "color": "#7A5CFF"
       },
       {
         "id": "stretch",
         "name": "Stretch.vn",
-        "role": "Training partner (phục hồi)",
+        "role": "Recovery Partner",
         "color": "#39A1C8"
       },
       {
@@ -207,14 +209,8 @@
       {
         "id": "under-armour",
         "name": "Under Armour",
-        "role": "Sponsor partner",
+        "role": "Sponsor Partner",
         "color": "#1C6FD8"
-      },
-      {
-        "id": "ss",
-        "name": "SS",
-        "role": "Communications Partner",
-        "color": "#D74B61"
       },
       {
         "id": "spacespeakers",
@@ -228,20 +224,26 @@
         "id": "ve-lang-01",
         "date": "2026-08-15",
         "title": "Về Làng #1",
-        "type": "Về Làng event",
-        "partnerIds": ["revive", "ss", "pace"]
+        "type": "Về Làng Event",
+        "partnerIds": [
+          "revive",
+          "onway",
+          "pace"
+        ]
       },
       {
         "id": "spacespeakers-01",
         "date": "2026-08-19",
         "title": "Training SpaceSpeakers",
         "type": "Training",
-        "partnerIds": ["SS"]
+        "partnerIds": [
+          "spacespeakers"
+        ]
       },
       {
         "id": "redline-rumble-01",
         "date": "2026-08-23",
-        "title": "REDLINE PROGRAM",
+        "title": "REDLINE Program",
         "type": "Event",
         "partnerIds": [
           "activefox",
@@ -251,7 +253,7 @@
       {
         "id": "under-armour-redline-01",
         "date": "2026-09-13",
-        "title": "Under Armour × Redline",
+        "title": "Under Armour × REDLINE",
         "type": "Collaboration",
         "partnerIds": [
           "under-armour",
@@ -264,7 +266,7 @@
         "title": "SS Music Run",
         "type": "Launch",
         "partnerIds": [
-          "ss"
+          "spacespeakers"
         ]
       }
     ]
