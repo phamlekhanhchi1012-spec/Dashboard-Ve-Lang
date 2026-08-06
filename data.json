@@ -126,7 +126,7 @@
     {
       "date": "2026-08-15",
       "title": "Về Làng #1",
-      "description": "Culture and community event"
+      "description": "Culture event"
     },
     {
       "date": "2026-08-23",
@@ -232,8 +232,8 @@
         "id": "ve-lang-01",
         "date": "2026-08-15",
         "title": "Về Làng #1",
-        "type": "Community event",
-        "partnerIds": ["revive", "stretch", "pace"]
+        "type": "Cultural event",
+        "partnerIds": ["Revive", "Stretch.vn", "PACE Training", "ONWAY"]
       },
       {
         "id": "spacespeakers-01",
