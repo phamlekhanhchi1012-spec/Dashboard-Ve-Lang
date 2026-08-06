@@ -185,6 +185,12 @@
         "color": "#2FAF7A"
       },
       {
+        "id": "revive",
+        "name": "Revive",
+        "role": "Community partner",
+        "color": "#7A5CFF"
+      },
+      {
         "id": "stretch",
         "name": "Stretch.vn",
         "role": "Training partner (phục hồi)",
@@ -205,19 +211,19 @@
       {
         "id": "ss",
         "name": "SS",
-        "role": "Sponsor partner",
+        "role": "Communications Partner",
         "color": "#D74B61"
       },
       {
         "id": "spacespeakers",
         "name": "SpaceSpeakers",
-        "role": "Training partner",
+        "role": "Communications Partner",
         "color": "#F0A832"
       }
     ],
     "events": [
       {
-        "id": "weekly-funrun-01",
+        "id": "weekly-funrun",
         "date": "2026-08-08",
         "title": "Weekly Funrun",
         "type": "Run",
@@ -228,7 +234,7 @@
         "date": "2026-08-15",
         "title": "Về Làng #1",
         "type": "Community event",
-        "partnerIds": []
+        "partnerIds": ["revive", "stretch", "pace"]
       },
       {
         "id": "spacespeakers-01",
