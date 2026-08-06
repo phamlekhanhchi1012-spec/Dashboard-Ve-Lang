@@ -3,144 +3,173 @@ async function loadDashboard() {
     const response = await fetch('data.json');
     const data = await response.json();
 
-    const teamList = document.getElementById('teamList');
-    const activeProjectsCount = document.getElementById('activeProjectsCount');
-    const backlogProjectsCount = document.getElementById('backlogProjectsCount');
-    const partnershipCount = document.getElementById('partnershipCount');
-    const openItemsCount = document.getElementById('openItemsCount');
-    const activeProjectGrid = document.getElementById('activeProjectGrid');
-    const backlogProjectGrid = document.getElementById('backlogProjectGrid');
-    const timelineCard = document.getElementById('timelineCard');
-    const partnerList = document.getElementById('partnerList');
-    const taskBoard = document.getElementById('taskBoard');
-
-    if (teamList && Array.isArray(data.team)) {
-      teamList.textContent = data.team.join(' · ');
-    }
-
-    if (activeProjectsCount) {
-      activeProjectsCount.textContent = String(data.projects?.length ?? 0);
-    }
-    if (partnershipCount) {
-      partnershipCount.textContent = String(data.partners?.length ?? 0);
-    }
-    if (openItemsCount) {
-      openItemsCount.textContent = String(data.tasks?.length ?? 0);
-    }
-
-    const activeProjects = Array.isArray(data.projects)
-      ? data.projects.filter(project => project.group !== 'Backlog')
-      : [];
-    const backlogProjects = Array.isArray(data.projects)
-      ? data.projects.filter(project => project.group === 'Backlog')
-      : [];
-
-    const renderProjectCards = (projects) => projects
-      .map((project, index) => {
-        const statusClass = getPillClass(project.status);
-        const partnerLabel = project.partner || 'TBD';
-        const nextEvent = formatDate(project.nextEvent);
-        const currentLabel = project.currentEvent || project.currentPhase || 'TBD';
-        const description = project.description
-          ? project.description
-          : `${project.name} is ${project.status.toLowerCase()} with partner ${partnerLabel}.`;
-
-        return `
-          <article class="project-card">
-            <div class="project-card-top">
-              <span class="project-index">${String(index + 1).padStart(2, '0')}</span>
-              <span class="pill ${statusClass}">${project.status}</span>
-            </div>
-            <h3>${project.name}</h3>
-            <p class="project-description">${description}</p>
-            <div class="project-meta">
-              <div><span>Current</span><strong>${currentLabel}</strong></div>
-              <div><span>Next</span><strong>${nextEvent}</strong></div>
-              <div><span>Partner</span><strong>${partnerLabel}</strong></div>
-            </div>
-          </article>`;
-      })
-      .join('');
-
-    if (activeProjectsCount) {
-      activeProjectsCount.textContent = String(activeProjects.length);
-    }
-    if (backlogProjectsCount) {
-      backlogProjectsCount.textContent = String(backlogProjects.length);
-    }
-    if (activeProjectGrid) {
-      activeProjectGrid.innerHTML = renderProjectCards(activeProjects);
-    }
-    if (backlogProjectGrid) {
-      backlogProjectGrid.innerHTML = renderProjectCards(backlogProjects);
-    }
-
-    if (timelineCard && Array.isArray(data.timeline)) {
-      const sortedTimeline = [...data.timeline].sort((a, b) => new Date(a.date) - new Date(b.date));
-      timelineCard.innerHTML = sortedTimeline
-        .map(entry => {
-          const formattedDate = formatDate(entry.date);
-          const [day, month] = formattedDate.split(' ');
-          return `
-            <div class="timeline-item timeline-item-large">
-              <div class="timeline-date"><span>${day}</span><small>${month}</small></div>
-              <div class="timeline-content"><strong>${entry.title}</strong><p>${entry.description || ''}</p></div>
-            </div>`;
-        })
-        .join('');
-    }
-
-    if (partnerList && Array.isArray(data.partners)) {
-      partnerList.innerHTML = data.partners
-        .map(partner => {
-          const avatar = partner.name?.trim().charAt(0).toUpperCase() || 'P';
-          const statusClass = getPillClass(partner.status);
-          return `
-            <article class="partner-card">
-              <div class="partner-avatar">${avatar}</div>
-              <div class="partner-info">
-                <strong>${partner.name}</strong>
-                <span>${partner.project}</span>
-              </div>
-              <span class="pill ${statusClass}">${partner.status}</span>
-            </article>`;
-        })
-        .join('');
-    }
-
-    if (taskBoard && Array.isArray(data.tasks)) {
-      taskBoard.innerHTML = data.tasks
-        .map(task => {
-          const priorityClass = task.priority?.toLowerCase() === 'high'
-            ? 'high'
-            : task.priority?.toLowerCase() === 'medium'
-            ? 'medium'
-            : 'low';
-          return `
-            <article class="task-row">
-              <label class="task-main">
-                <input type="checkbox">
-                <span><strong>${task.title}</strong><small>${task.project ? `${task.project} · ` : ''}${task.due ? `Due ${formatDate(task.due)}` : ''}</small></span>
-              </label>
-              <span class="priority ${priorityClass}">${task.priority}</span>
-            </article>`;
-        })
-        .join('');
-    }
-
+    renderHeader(data);
+    renderSummary(data);
+    renderProjects(data);
+    renderTimeline(data);
     renderRoadmap(data);
+    renderPartners(data);
+    renderTasks(data);
+    renderRawJson(data);
+    attachUiHandlers();
+    setLastUpdated();
   } catch (error) {
     console.error('Failed to load dashboard data:', error);
   }
 }
 
-function getPillClass(status) {
-  if (!status) return 'neutral';
-  const normalized = status.toString().toLowerCase();
-  if (normalized.includes('on track') || normalized.includes('active')) return 'success';
-  if (normalized.includes('need') || normalized.includes('negotiating') || normalized.includes('warning')) return 'warning';
-  if (normalized.includes('planning') || normalized.includes('confirmed') || normalized.includes('preparing')) return 'neutral';
-  return 'accent';
+function renderHeader(data) {
+  const teamList = document.getElementById('teamList');
+  const dashboardTitle = document.getElementById('dashboardTitle');
+  const dashboardDescription = document.getElementById('dashboardDescription');
+
+  if (teamList && Array.isArray(data.team)) {
+    teamList.textContent = data.team.join(' · ');
+  }
+
+  if (dashboardTitle) {
+    dashboardTitle.textContent = data.objective || 'Project Dashboard';
+  }
+
+  if (dashboardDescription) {
+    dashboardDescription.textContent = data.description || 'Everything the team needs to track projects, events and partnerships.';
+  }
+}
+
+function renderSummary(data) {
+  const summaryGrid = document.getElementById('summaryGrid');
+  if (!summaryGrid) return;
+
+  const activeProjects = Array.isArray(data.projects)
+    ? data.projects.filter(project => project.group?.toString().toLowerCase() !== 'backlog')
+    : [];
+  const backlogProjects = Array.isArray(data.projects)
+    ? data.projects.filter(project => project.group?.toString().toLowerCase() === 'backlog')
+    : [];
+
+  const partnerCount = Array.isArray(data.partners) ? data.partners.length : 0;
+  const taskCount = Array.isArray(data.tasks) ? data.tasks.length : 0;
+  const overallStatus = data.summary?.status || deriveOverallStatus(activeProjects, backlogProjects, taskCount);
+  const description = data.summary?.description || 'Core activities are moving forward with no critical blockers.';
+
+  const cards = [
+    {
+      title: 'Overall Status',
+      value: overallStatus,
+      description,
+      variant: 'featured'
+    },
+    {
+      title: 'Active Projects',
+      value: String(activeProjects.length),
+      description: 'Projects currently in execution.'
+    },
+    {
+      title: 'Backlog',
+      value: String(backlogProjects.length),
+      description: 'Projects waiting for planning or approval.'
+    },
+    {
+      title: 'Partnership Deals',
+      value: String(partnerCount),
+      description: 'Active, confirmed or in discussion.'
+    },
+    {
+      title: 'Open Items',
+      value: String(taskCount),
+      description: 'Tasks requiring follow-up across all projects.'
+    }
+  ];
+
+  summaryGrid.innerHTML = cards.map(card => `
+    <article class="summary-card ${card.variant || ''}">
+      <span class="eyebrow">${escapeHtml(card.title)}</span>
+      <strong class="metric">${escapeHtml(card.value)}</strong>
+      <p>${escapeHtml(card.description)}</p>
+    </article>`).join('');
+}
+
+function deriveOverallStatus(activeProjects, backlogProjects, taskCount) {
+  if (!activeProjects.length && backlogProjects.length) return 'Planning';
+  if (taskCount > 10) return 'Busy';
+  return activeProjects.length ? 'On Track' : 'Starting';
+}
+
+function renderProjects(data) {
+  const container = document.getElementById('projectContainer');
+  if (!container) return;
+
+  if (!Array.isArray(data.projects) || !data.projects.length) {
+    container.innerHTML = '<div class="roadmap-event-empty">No project data available.</div>';
+    return;
+  }
+
+  const grouped = data.projects.reduce((accumulator, project) => {
+    const group = project.group?.toString().trim() || 'Uncategorized';
+    if (!accumulator[group]) accumulator[group] = [];
+    accumulator[group].push(project);
+    return accumulator;
+  }, {});
+
+  container.innerHTML = Object.entries(grouped)
+    .map(([group, projects]) => `
+      <div class="project-group">
+        <div class="section-heading project-group-heading">
+          <div><span class="eyebrow">${escapeHtml(group)}</span><h3>${escapeHtml(group)}</h3></div>
+        </div>
+        <div class="project-grid">${renderProjectCards(projects)}</div>
+      </div>`)
+    .join('');
+}
+
+function renderProjectCards(projects) {
+  return projects.map((project, index) => {
+    const statusClass = getPillClass(project.status);
+    const partnerLabel = project.partner || 'TBD';
+    const nextEvent = formatDate(project.nextEvent);
+    const currentLabel = project.currentEvent || project.currentPhase || 'TBD';
+    const description = project.description
+      ? project.description
+      : `${project.name} is ${String(project.status || 'active').toLowerCase()} with ${partnerLabel}.`;
+
+    return `
+      <article class="project-card">
+        <div class="project-card-top">
+          <span class="project-index">${String(index + 1).padStart(2, '0')}</span>
+          <span class="pill ${statusClass}">${escapeHtml(project.status || 'Unknown')}</span>
+        </div>
+        <h3>${escapeHtml(project.name)}</h3>
+        <p class="project-description">${escapeHtml(description)}</p>
+        <div class="project-meta">
+          <div><span>Current</span><strong>${escapeHtml(currentLabel)}</strong></div>
+          <div><span>Next</span><strong>${escapeHtml(nextEvent)}</strong></div>
+          <div><span>Partner</span><strong>${escapeHtml(partnerLabel)}</strong></div>
+        </div>
+      </article>`;
+  }).join('');
+}
+
+function renderTimeline(data) {
+  const timelineCard = document.getElementById('timelineCard');
+  if (!timelineCard) return;
+
+  if (!Array.isArray(data.timeline) || !data.timeline.length) {
+    timelineCard.innerHTML = '<div class="roadmap-event-empty">No timeline items available.</div>';
+    return;
+  }
+
+  const sortedTimeline = [...data.timeline].sort((a, b) => new Date(a.date) - new Date(b.date));
+  timelineCard.innerHTML = sortedTimeline
+    .map(entry => {
+      const formattedDate = formatDate(entry.date);
+      const [day, month] = formattedDate.split(' ');
+      return `
+        <div class="timeline-item timeline-item-large">
+          <div class="timeline-date"><span>${escapeHtml(day)}</span><small>${escapeHtml(month)}</small></div>
+          <div class="timeline-content"><strong>${escapeHtml(entry.title)}</strong><p>${escapeHtml(entry.description || '')}</p></div>
+        </div>`;
+    })
+    .join('');
 }
 
 function renderRoadmap(data) {
@@ -158,7 +187,11 @@ function renderRoadmap(data) {
 
   const partners = roadmapData.partners.filter(partner => partner && partner.id);
   const events = roadmapData.events
-    .map(event => ({ ...event, parsedDate: parseRoadmapDate(event.date) }))
+    .map(event => ({
+      ...event,
+      partnerIds: normalizeRoadmapPartnerIds(event.partnerIds),
+      parsedDate: parseRoadmapDate(event.date)
+    }))
     .filter(event => event.parsedDate)
     .sort((a, b) => a.parsedDate - b.parsedDate);
 
@@ -175,7 +208,7 @@ function renderRoadmapPartners(partners, events, container) {
   const partnerMap = getRoadmapPartnerMap(partners);
   const markup = partners.map(partner => {
     const partnerId = normalizeRoadmapPartnerId(partner.id);
-    const linkedCount = events.filter(event => normalizeRoadmapPartnerIds(event.partnerIds).includes(partnerId)).length;
+    const linkedCount = events.filter(event => event.partnerIds.includes(partnerId)).length;
     return `
       <button class="roadmap-partner-chip" type="button" data-partner-id="${escapeHtml(partnerId)}" aria-label="Show events for ${escapeHtml(partner.name)}">
         <span class="roadmap-partner-meta">
@@ -220,11 +253,10 @@ function renderRoadmapEvents(partners, events, container) {
   const railMarkup = '<div class="roadmap-timeline-rail"></div>';
   const eventMarkup = events.map((event, index) => {
     const position = calculateEventPosition(event.parsedDate, startDate, endDate);
-    const lane = index % 2 === 0 ? 0 : 1;
-    const partnerMarkers = renderEventPartnerMarkers(event, partnerMap);
     const dateLabel = formatRoadmapDate(event.parsedDate);
+    const partnerMarkers = renderEventPartnerMarkers(event, partnerMap);
     return `
-      <article class="roadmap-event-card" data-partner-ids="${escapeHtml(normalizeRoadmapPartnerIds(event.partnerIds).join(' '))}">
+      <article class="roadmap-event-card" data-partner-ids="${escapeHtml(event.partnerIds.join(' '))}">
         <div class="roadmap-event-accent"></div>
         <span class="roadmap-event-date">${escapeHtml(dateLabel)}</span>
         <strong>${escapeHtml(event.title)}</strong>
@@ -266,31 +298,17 @@ function getRoadmapPartnerMap(partners) {
   }, {});
 }
 
-function normalizeRoadmapPartnerId(value) {
-  return String(value ?? '').trim().toLowerCase();
-}
-
-function normalizeRoadmapPartnerIds(value) {
-  if (Array.isArray(value)) {
-    return value.map(normalizeRoadmapPartnerId).filter(Boolean);
-  }
-  if (typeof value === 'string') {
-    return value.split(/[,;]+/).map(normalizeRoadmapPartnerId).filter(Boolean);
-  }
-  return [];
-}
-
 function renderEventPartnerMarkers(event, partnerMap) {
-  if (!Array.isArray(event.partnerIds) || !event.partnerIds.length) {
+  const partnerIds = normalizeRoadmapPartnerIds(event.partnerIds);
+  if (!partnerIds.length) {
     return '<span class="roadmap-event-partner" data-partner-id=""><span>Unassigned</span></span>';
   }
 
-  return event.partnerIds
-    .filter(Boolean)
+  return partnerIds
     .map((partnerId) => {
       const partner = partnerMap[partnerId];
       if (!partner) return '';
-      return `<span class="roadmap-event-partner" data-partner-id="${escapeHtml(partner.id)}">${escapeHtml(partner.name)}</span>`;
+      return `<span class="roadmap-event-partner" data-partner-id="${escapeHtml(partnerId)}">${escapeHtml(partner.name)}</span>`;
     })
     .filter(Boolean)
     .join('');
@@ -311,8 +329,7 @@ function calculateEventPosition(date, startDate, endDate) {
   const totalDays = Math.max(1, (endDate - startDate) / (1000 * 60 * 60 * 24));
   const offsetDays = Math.max(0, (date - startDate) / (1000 * 60 * 60 * 24));
   const ratio = offsetDays / totalDays;
-  const clamped = Math.min(88, Math.max(12, ratio * 100));
-  return clamped;
+  return Math.min(88, Math.max(12, ratio * 100));
 }
 
 function parseRoadmapDate(value) {
@@ -321,18 +338,125 @@ function parseRoadmapDate(value) {
   return Number.isNaN(parsed.valueOf()) ? null : parsed;
 }
 
+function formatDate(value) {
+  if (!value) return 'TBD';
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.valueOf())) return String(value);
+  return parsed.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+}
+
 function formatRoadmapDate(value) {
   if (!value) return 'TBD';
   return value.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
 }
 
 function getEventAccentColor(event, partnerMap) {
-  const partnerIds = Array.isArray(event.partnerIds) ? event.partnerIds.filter(Boolean) : [];
+  const partnerIds = normalizeRoadmapPartnerIds(event.partnerIds);
   if (!partnerIds.length) return 'var(--accent)';
   if (partnerIds.length === 1) {
     return partnerMap[partnerIds[0]]?.color || 'var(--accent)';
   }
-  return partnerIds.slice(0, 3).map((partnerId) => partnerMap[partnerId]?.color || 'var(--accent)').join(', ');
+  return partnerIds.slice(0, 3).map(partnerId => partnerMap[partnerId]?.color || 'var(--accent)').join(', ');
+}
+
+function normalizeRoadmapPartnerId(value) {
+  return String(value ?? '').trim().toLowerCase();
+}
+
+function normalizeRoadmapPartnerIds(value) {
+  if (Array.isArray(value)) {
+    return value.map(normalizeRoadmapPartnerId).filter(Boolean);
+  }
+  if (typeof value === 'string') {
+    return value.split(/[,;]+/).map(normalizeRoadmapPartnerId).filter(Boolean);
+  }
+  return [];
+}
+
+function renderPartners(data) {
+  const partnerList = document.getElementById('partnerList');
+  if (!partnerList) return;
+
+  if (!Array.isArray(data.partners) || !data.partners.length) {
+    partnerList.innerHTML = '<div class="roadmap-event-empty">No partners available.</div>';
+    return;
+  }
+
+  partnerList.innerHTML = data.partners
+    .map(partner => {
+      const avatar = partner.name?.trim().charAt(0).toUpperCase() || 'P';
+      const statusClass = getPillClass(partner.status);
+      return `
+        <article class="partner-card">
+          <div class="partner-avatar">${escapeHtml(avatar)}</div>
+          <div class="partner-info">
+            <strong>${escapeHtml(partner.name)}</strong>
+            <span>${escapeHtml(partner.project || '')}</span>
+          </div>
+          <span class="pill ${statusClass}">${escapeHtml(partner.status || 'Unknown')}</span>
+        </article>`;
+    })
+    .join('');
+}
+
+function renderTasks(data) {
+  const taskBoard = document.getElementById('taskBoard');
+  const taskCountDisplay = document.getElementById('taskCount');
+  if (!taskBoard) return;
+
+  const tasks = Array.isArray(data.tasks) ? data.tasks : [];
+  if (taskCountDisplay) {
+    const highPriorityCount = tasks.filter(task => task.priority?.toString().toLowerCase() === 'high').length;
+    taskCountDisplay.textContent = `${highPriorityCount} priority items`;
+  }
+
+  if (!tasks.length) {
+    taskBoard.innerHTML = '<div class="roadmap-event-empty">No open items available.</div>';
+    return;
+  }
+
+  taskBoard.innerHTML = tasks
+    .map(task => {
+      const priorityClass = task.priority?.toString().toLowerCase() === 'high'
+        ? 'high'
+        : task.priority?.toString().toLowerCase() === 'medium'
+        ? 'medium'
+        : 'low';
+      return `
+        <article class="task-row">
+          <label class="task-main">
+            <input type="checkbox">
+            <span><strong>${escapeHtml(task.title)}</strong><small>${task.project ? `${escapeHtml(task.project)} · ` : ''}${task.due ? `Due ${escapeHtml(formatDate(task.due))}` : ''}</small></span>
+          </label>
+          <span class="priority ${priorityClass}">${escapeHtml(task.priority || 'Low')}</span>
+        </article>`;
+    })
+    .join('');
+}
+
+function renderRawJson(data) {
+  const contentSection = document.getElementById('content');
+  if (!contentSection) return;
+  contentSection.innerHTML = `<pre class="json-view">${escapeHtml(JSON.stringify(data, null, 2))}</pre>`;
+}
+
+function attachUiHandlers() {
+  const darkBtn = document.getElementById('darkModeButton');
+  if (darkBtn) {
+    darkBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      darkBtn.textContent = document.body.classList.contains('dark') ? 'Light' : 'Dark';
+    });
+  }
+}
+
+function getPillClass(status) {
+  if (!status) return 'neutral';
+  const normalized = status.toString().toLowerCase();
+  if (normalized.includes('on track') || normalized.includes('active')) return 'success';
+  if (normalized.includes('need') || normalized.includes('negotiating') || normalized.includes('warning')) return 'warning';
+  if (normalized.includes('planning') || normalized.includes('confirmed') || normalized.includes('preparing')) return 'neutral';
+  return 'accent';
 }
 
 function escapeHtml(value) {
@@ -344,14 +468,6 @@ function escapeHtml(value) {
     .replace(/'/g, '&#39;');
 }
 
-function formatDate(value) {
-  if (!value) return 'TBD';
-  if (value.toUpperCase?.() === 'TBD') return 'TBD';
-  const parsed = new Date(value);
-  if (Number.isNaN(parsed.valueOf())) return value;
-  return parsed.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
-}
-
 function setLastUpdated() {
   const updateText = document.getElementById('lastUpdated');
   if (!updateText) return;
@@ -360,14 +476,4 @@ function setLastUpdated() {
   updateText.textContent = `Last updated ${today.toLocaleDateString('en-GB', options)}`;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  loadDashboard();
-  setLastUpdated();
-  const darkBtn = document.getElementById('darkModeButton');
-  if (darkBtn) {
-    darkBtn.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      darkBtn.textContent = document.body.classList.contains('dark') ? 'Light' : 'Dark';
-    });
-  }
-});
+document.addEventListener('DOMContentLoaded', loadDashboard);

@@ -114,11 +114,7 @@
   ],
   "timeline": [
     {
-      "date": "2026-08-08",
-      "title": "Weekly Funrun",
-      "description": "Community run · Sunday"
-    },
-    {
+
       "date": "2026-08-19",
       "title": "Training SpaceSpeakers",
       "description": "Mid-week training session"
@@ -232,8 +228,8 @@
         "id": "ve-lang-01",
         "date": "2026-08-15",
         "title": "Về Làng #1",
-        "type": "Cultural event",
-        "partnerIds": ["Revive", "Stretch.vn", "PACE Training", "ONWAY"]
+        "type": "Về Làng event",
+        "partnerIds": ["revive", "ss", "pace"]
       },
       {
         "id": "spacespeakers-01",

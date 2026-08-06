@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<\!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -20,6 +20,7 @@
       <nav class="nav-list">
         <a class="nav-item active" href="#dashboard">Dashboard</a>
         <a class="nav-item" href="#projects">Projects</a>
+        <a class="nav-item" href="#timeline">Timeline</a>
         <a class="nav-item" href="#roadmap">Roadmap</a>
         <a class="nav-item" href="#partnerships">Partnerships</a>
         <a class="nav-item" href="#tasks">Open Items</a>
@@ -27,7 +28,7 @@
 
       <div class="sidebar-note">
         <span class="eyebrow">Team</span>
-        <p id="teamList">Tín · Tài · Chi · Hưng · James · Nguyên</p>
+        <p id="teamList"></p>
       </div>
     </aside>
 
@@ -35,66 +36,34 @@
       <header class="topbar">
         <div>
           <span class="eyebrow">LANGHOOD OPERATIONS</span>
-          <h1>Project Dashboard</h1>
-          <p>Everything the team needs to track projects, events and partnerships.</p>
+          <h1 id="dashboardTitle">Project Dashboard</h1>
+          <p id="dashboardDescription">Everything the team needs to track projects, events and partnerships.</p>
         </div>
 
         <div class="header-actions">
           <label class="search-box">
             <span>⌕</span>
-            <input type="search" placeholder="Search dashboard">
+            <input type="search" placeholder="Search dashboard" aria-label="Search dashboard">
           </label>
           <button class="icon-button" id="darkModeButton" type="button">Dark</button>
         </div>
       </header>
 
-      <section class="summary-grid">
-        <article class="summary-card featured">
-          <span class="eyebrow">Overall Status</span>
-          <div class="status-line"><span class="status-dot"></span><strong>On Track</strong></div>
-          <p>Core activities are moving forward with no critical blockers.</p>
-        </article>
-
-        <article class="summary-card">
-          <span class="eyebrow">Active Projects</span>
-          <strong class="metric" id="activeProjectsCount">4</strong>
-          <p>Projects currently in execution.</p>
-        </article>
-
-        <article class="summary-card">
-          <span class="eyebrow">Backlog</span>
-          <strong class="metric" id="backlogProjectsCount">0</strong>
-          <p>Projects waiting for planning or idea approval.</p>
-        </article>
-
-        <article class="summary-card">
-          <span class="eyebrow">Partnership Deals</span>
-          <strong class="metric" id="partnershipCount">7</strong>
-          <p>Active, confirmed or currently in discussion.</p>
-        </article>
-
-        <article class="summary-card">
-          <span class="eyebrow">Open Items</span>
-          <strong class="metric" id="openItemsCount">18</strong>
-          <p>Tasks requiring follow-up across all projects.</p>
-        </article>
-      </section>
+      <section class="summary-grid" id="summaryGrid"></section>
 
       <section class="section-block" id="projects">
         <div class="section-heading">
           <div><span class="eyebrow">Portfolio</span><h2>Projects</h2></div>
           <a href="#tasks">View open items</a>
         </div>
+        <div id="projectContainer"></div>
+      </section>
 
+      <section class="section-block" id="timeline">
         <div class="section-heading">
-          <div><span class="eyebrow">Current</span><h2>Active</h2></div>
+          <div><span class="eyebrow">Progress</span><h2>Timeline</h2></div>
         </div>
-        <div class="project-grid" id="activeProjectGrid"></div>
-
-        <div class="section-heading">
-          <div><span class="eyebrow">Future</span><h2>Backlog</h2></div>
-        </div>
-        <div class="project-grid" id="backlogProjectGrid"></div>
+        <div id="timelineCard" class="timeline-card"></div>
       </section>
 
       <section class="section-block" id="roadmap">
@@ -113,17 +82,18 @@
         </div>
       </section>
 
-      <section class="section-block" id="LANGHOOD partnerships list">
-        <div class="section-heading"><div><span class="eyebrow">CRM</span><h2>Partnerships</h2></div></div>
+      <section class="section-block" id="partnerships">
+        <div class="section-heading">
+          <div><span class="eyebrow">CRM</span><h2>Partnerships</h2></div>
+        </div>
         <div class="partner-list" id="partnerList"></div>
       </section>
 
       <section class="section-block" id="tasks">
         <div class="section-heading">
           <div><span class="eyebrow">Execution</span><h2>Open Items</h2></div>
-          <span class="task-count">3 priority items</span>
+          <span class="task-count" id="taskCount"></span>
         </div>
-
         <div class="task-board" id="taskBoard"></div>
       </section>
 
@@ -139,13 +109,5 @@
   </div>
 
   <script src="script.js"></script>
-  <script>
-    window.addEventListener('load', () => {
-      const contentSection = document.getElementById('content');
-      if (!contentSection) {
-        console.warn('Dashboard content failed to load. Check script.js and data.json.');
-      }
-    });
-  </script>
 </body>
 </html>
