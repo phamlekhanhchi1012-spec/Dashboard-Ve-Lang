@@ -127,6 +127,8 @@ async function loadDashboard() {
         })
         .join('');
     }
+
+    renderRoadmap(data);
   } catch (error) {
     console.error('Failed to load dashboard data:', error);
   }
@@ -139,6 +141,191 @@ function getPillClass(status) {
   if (normalized.includes('need') || normalized.includes('negotiating') || normalized.includes('warning')) return 'warning';
   if (normalized.includes('planning') || normalized.includes('confirmed') || normalized.includes('preparing')) return 'neutral';
   return 'accent';
+}
+
+function renderRoadmap(data) {
+  const partnerTrack = document.getElementById('roadmapPartnerTrack');
+  const timeline = document.getElementById('roadmapTimeline');
+
+  if (!partnerTrack || !timeline) return;
+
+  const roadmapData = data?.roadmap;
+  if (!roadmapData || !Array.isArray(roadmapData.partners) || !Array.isArray(roadmapData.events)) {
+    partnerTrack.innerHTML = '<div class="roadmap-event-empty">Roadmap data is not available yet.</div>';
+    timeline.innerHTML = '<div class="roadmap-event-empty">Add roadmap partners and events in data.json to populate this timeline.</div>';
+    return;
+  }
+
+  const partners = roadmapData.partners.filter(partner => partner && partner.id);
+  const events = roadmapData.events
+    .map(event => ({ ...event, parsedDate: parseRoadmapDate(event.date) }))
+    .filter(event => event.parsedDate)
+    .sort((a, b) => a.parsedDate - b.parsedDate);
+
+  renderRoadmapPartners(partners, events, partnerTrack);
+  renderRoadmapEvents(partners, events, timeline);
+}
+
+function renderRoadmapPartners(partners, events, container) {
+  if (!partners.length) {
+    container.innerHTML = '<div class="roadmap-event-empty">No roadmap partners available.</div>';
+    return;
+  }
+
+  const partnerMap = getRoadmapPartnerMap(partners);
+  const markup = partners.map(partner => {
+    const linkedCount = events.filter(event => event.partnerIds?.includes(partner.id)).length;
+    return `
+      <button class="roadmap-partner-chip" type="button" data-partner-id="${escapeHtml(partner.id)}" aria-label="Show events for ${escapeHtml(partner.name)}">
+        <span class="roadmap-partner-meta">
+          <strong>${escapeHtml(partner.name)}</strong>
+          <span>${escapeHtml(partner.role || 'Partner')}</span>
+        </span>
+        <span class="roadmap-partner-count">${linkedCount}</span>
+      </button>`;
+  }).join('');
+
+  container.innerHTML = markup;
+
+  container.querySelectorAll('.roadmap-partner-chip').forEach((chip) => {
+    const partner = partnerMap[chip.dataset.partnerId];
+    if (!partner) return;
+    chip.style.setProperty('--roadmap-partner-color', partner.color || '#fa2d1a');
+    chip.addEventListener('click', () => {
+      const isActive = chip.classList.toggle('is-active');
+      const selectedId = chip.dataset.partnerId;
+      const timeline = document.getElementById('roadmapTimeline');
+      if (!timeline) return;
+      timeline.querySelectorAll('.roadmap-event-card').forEach((card) => {
+        const linked = card.dataset.partnerIds.split(' ').includes(selectedId);
+        card.classList.toggle('is-highlighted', isActive && linked);
+        card.classList.toggle('is-muted', isActive && !linked);
+      });
+    });
+  });
+}
+
+function renderRoadmapEvents(partners, events, container) {
+  if (!events.length) {
+    container.innerHTML = '<div class="roadmap-event-empty">No roadmap events available.</div>';
+    return;
+  }
+
+  const partnerMap = getRoadmapPartnerMap(partners);
+  const startDate = events[0].parsedDate;
+  const endDate = events[events.length - 1].parsedDate;
+  const monthLabels = generateMonthLabels(startDate, endDate);
+
+  const railMarkup = '<div class="roadmap-timeline-rail"></div>';
+  const eventMarkup = events.map((event, index) => {
+    const position = calculateEventPosition(event.parsedDate, startDate, endDate);
+    const lane = index % 2 === 0 ? 0 : 1;
+    const partnerMarkers = renderEventPartnerMarkers(event, partnerMap);
+    const dateLabel = formatRoadmapDate(event.parsedDate);
+    return `
+      <article class="roadmap-event-card" data-partner-ids="${escapeHtml(event.partnerIds?.join(' ') || '')}">
+        <div class="roadmap-event-accent"></div>
+        <span class="roadmap-event-date">${escapeHtml(dateLabel)}</span>
+        <strong>${escapeHtml(event.title)}</strong>
+        <p>${escapeHtml(event.type || 'Event')}</p>
+        <div class="roadmap-event-partners">${partnerMarkers}</div>
+      </article>`;
+  }).join('');
+
+  container.innerHTML = `
+    <div class="roadmap-month-labels">${monthLabels.map(item => `<div class="roadmap-month-label">${escapeHtml(item)}</div>`).join('')}</div>
+    <div class="roadmap-timeline-shell">
+      ${railMarkup}
+      ${eventMarkup}
+    </div>`;
+
+  container.querySelectorAll('.roadmap-event-card').forEach((card, index) => {
+    const event = events[index];
+    const lane = index % 2 === 0 ? 0 : 1;
+    const position = calculateEventPosition(event.parsedDate, startDate, endDate);
+    const accentColor = getEventAccentColor(event, partnerMap);
+    card.style.setProperty('--event-left', `${position}%`);
+    card.style.setProperty('--event-top', lane === 0 ? '24px' : '104px');
+    card.style.setProperty('--event-accent', accentColor);
+    card.querySelectorAll('.roadmap-event-partner').forEach(marker => {
+      const partnerId = marker.dataset.partnerId;
+      const partner = partnerMap[partnerId];
+      if (partner) {
+        marker.style.setProperty('--roadmap-partner-color', partner.color || '#fa2d1a');
+      }
+    });
+  });
+}
+
+function getRoadmapPartnerMap(partners) {
+  return partners.reduce((accumulator, partner) => {
+    accumulator[partner.id] = partner;
+    return accumulator;
+  }, {});
+}
+
+function renderEventPartnerMarkers(event, partnerMap) {
+  if (!Array.isArray(event.partnerIds) || !event.partnerIds.length) {
+    return '<span class="roadmap-event-partner" data-partner-id=""><span>Unassigned</span></span>';
+  }
+
+  return event.partnerIds
+    .filter(Boolean)
+    .map((partnerId) => {
+      const partner = partnerMap[partnerId];
+      if (!partner) return '';
+      return `<span class="roadmap-event-partner" data-partner-id="${escapeHtml(partner.id)}">${escapeHtml(partner.name)}</span>`;
+    })
+    .filter(Boolean)
+    .join('');
+}
+
+function generateMonthLabels(startDate, endDate) {
+  const labels = [];
+  const cursor = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
+  const endCursor = new Date(endDate.getFullYear(), endDate.getMonth(), 1);
+  while (cursor <= endCursor) {
+    labels.push(cursor.toLocaleDateString('en-GB', { month: 'short' }));
+    cursor.setMonth(cursor.getMonth() + 1);
+  }
+  return labels;
+}
+
+function calculateEventPosition(date, startDate, endDate) {
+  const totalDays = Math.max(1, (endDate - startDate) / (1000 * 60 * 60 * 24));
+  const offsetDays = Math.max(0, (date - startDate) / (1000 * 60 * 60 * 24));
+  const ratio = offsetDays / totalDays;
+  const clamped = Math.min(88, Math.max(12, ratio * 100));
+  return clamped;
+}
+
+function parseRoadmapDate(value) {
+  if (!value) return null;
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.valueOf()) ? null : parsed;
+}
+
+function formatRoadmapDate(value) {
+  if (!value) return 'TBD';
+  return value.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+}
+
+function getEventAccentColor(event, partnerMap) {
+  const partnerIds = Array.isArray(event.partnerIds) ? event.partnerIds.filter(Boolean) : [];
+  if (!partnerIds.length) return 'var(--accent)';
+  if (partnerIds.length === 1) {
+    return partnerMap[partnerIds[0]]?.color || 'var(--accent)';
+  }
+  return partnerIds.slice(0, 3).map((partnerId) => partnerMap[partnerId]?.color || 'var(--accent)').join(', ');
+}
+
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 function formatDate(value) {

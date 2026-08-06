@@ -2,9 +2,7 @@
   "team": [
     "LANGHOOD team"
   ],
-
   "objective": "Langhood Project Hub",
-
   "projects": [
     {
       "name": "Weekly Funrun",
@@ -61,7 +59,6 @@
       "partner": "Under Armour × Redline"
     }
   ],
-
   "partners": [
     {
       "name": "PACE Training",
@@ -109,7 +106,6 @@
       "status": "Planning"
     }
   ],
-
   "timeline": [
     {
       "date": "2026-08-08",
@@ -142,7 +138,6 @@
       "description": "Planning stage"
     }
   ],
-
   "tasks": [
     {
       "title": "Trả bài Truyền thông cho nhà tài trợ",
@@ -168,5 +163,109 @@
       "priority": "Medium",
       "due": "2026-08-08"
     }
-  ]
+  ],
+  "roadmap": {
+    "partners": [
+      {
+        "id": "activefox",
+        "name": "ActiveFox",
+        "role": "Event partner",
+        "color": "#F26A2E"
+      },
+      {
+        "id": "redline",
+        "name": "Redline",
+        "role": "Race partner",
+        "color": "#E83224"
+      },
+      {
+        "id": "pace",
+        "name": "PACE Training",
+        "role": "Community partner",
+        "color": "#2FAF7A"
+      },
+      {
+        "id": "stretch",
+        "name": "Stretch.vn",
+        "role": "Culture partner",
+        "color": "#5B8DEF"
+      },
+      {
+        "id": "onway",
+        "name": "ONWAY",
+        "role": "Community partner",
+        "color": "#9A67EA"
+      },
+      {
+        "id": "under-armour",
+        "name": "Under Armour",
+        "role": "Sponsor partner",
+        "color": "#1C6FD8"
+      },
+      {
+        "id": "ss",
+        "name": "SS",
+        "role": "Sponsor partner",
+        "color": "#D74B61"
+      },
+      {
+        "id": "spacespeakers",
+        "name": "SpaceSpeakers",
+        "role": "Training partner",
+        "color": "#F0A832"
+      }
+    ],
+    "events": [
+      {
+        "id": "weekly-funrun-01",
+        "date": "2026-08-08",
+        "title": "Weekly Funrun",
+        "type": "Run",
+        "partnerIds": []
+      },
+      {
+        "id": "ve-lang-01",
+        "date": "2026-08-15",
+        "title": "Về Làng #1",
+        "type": "Community event",
+        "partnerIds": []
+      },
+      {
+        "id": "spacespeakers-01",
+        "date": "2026-08-19",
+        "title": "Training SpaceSpeakers",
+        "type": "Training",
+        "partnerIds": []
+      },
+      {
+        "id": "redline-rumble-01",
+        "date": "2026-08-23",
+        "title": "Redline Rumble",
+        "type": "Event",
+        "partnerIds": [
+          "activefox",
+          "redline"
+        ]
+      },
+      {
+        "id": "under-armour-redline-01",
+        "date": "2026-09-13",
+        "title": "Under Armour × Redline",
+        "type": "Collaboration",
+        "partnerIds": [
+          "under-armour",
+          "redline"
+        ]
+      },
+      {
+        "id": "ss-music-run-01",
+        "date": "2026-09-20",
+        "title": "SS Music Run",
+        "type": "Launch",
+        "partnerIds": [
+          "ss"
+        ]
+      }
+    ]
+  }
 }
