@@ -32,7 +32,7 @@
       "partner": "SS"
     },
     {
-      "name": "Về Làng Series",
+      "name": "Về Làng ",
       "status": "Preparing",
       "group": "Active",
       "description": "A cultural series focused on stories, identity and shared experiences.",
@@ -72,17 +72,17 @@
     },
     {
       "name": "Revive",
-      "project": "Weekly Funrun, Về Làng Series,..",
+      "project": "Weekly Funrun, Về Làng,..",
       "status": "Negotiating"
     },
     {
       "name": "Stretch.vn",
-      "project": "Về Làng Series",
+      "project": "Về Làng",
       "status": "Confirmed"
     },
     {
       "name": "ONWAY",
-      "project": "Về Làng Series",
+      "project": "Weekly Funrun, Về Làng,..",
       "status": "Negotiating (chưa chốt sẽ làm gì)"
     },
     {
@@ -147,7 +147,7 @@
     },
     {
       "title": "Bán vé và Launch",
-      "project": "Về Làng Series",
+      "project": "Về Làng",
       "priority": "Medium",
       "due": "2026-08-05"
     },
@@ -222,13 +222,6 @@
       }
     ],
     "events": [
-      {
-        "id": "weekly-funrun",
-        "date": "2026-08-08",
-        "title": "Weekly Funrun",
-        "type": "Run",
-        "partnerIds": []
-      },
       {
         "id": "ve-lang-01",
         "date": "2026-08-15",
