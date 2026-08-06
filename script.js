@@ -127,6 +127,8 @@ async function loadDashboard() {
         })
         .join('');
     }
+
+    renderRoadmap(data);
   } catch (error) {
     console.error('Failed to load dashboard data:', error);
   }
@@ -139,6 +141,85 @@ function getPillClass(status) {
   if (normalized.includes('need') || normalized.includes('negotiating') || normalized.includes('warning')) return 'warning';
   if (normalized.includes('planning') || normalized.includes('confirmed') || normalized.includes('preparing')) return 'neutral';
   return 'accent';
+}
+
+function renderRoadmap(data) {
+  const roadmapRange = document.getElementById('roadmapRange');
+  const roadmapSummary = document.getElementById('roadmapSummary');
+  const ganttTimelineHeader = document.getElementById('ganttTimelineHeader');
+  const ganttRows = document.getElementById('ganttRows');
+
+  if (!roadmapRange || !roadmapSummary || !ganttTimelineHeader || !ganttRows) return;
+
+  const roadmapEntries = [];
+
+  if (Array.isArray(data.projects)) {
+    data.projects.forEach(project => {
+      roadmapEntries.push({
+        title: project.name,
+        description: project.description || project.currentEvent || 'Upcoming milestone',
+        label: project.nextEvent || 'TBD',
+        status: project.status,
+        type: 'Project',
+        date: parseRoadmapDate(project.nextEvent)
+      });
+    });
+  }
+
+  if (Array.isArray(data.timeline)) {
+    data.timeline.forEach(entry => {
+      roadmapEntries.push({
+        title: entry.title,
+        description: entry.description || 'Milestone',
+        label: entry.date || 'TBD',
+        status: 'Milestone',
+        type: 'Milestone',
+        date: parseRoadmapDate(entry.date)
+      });
+    });
+  }
+
+  const validEntries = roadmapEntries.filter(entry => entry.date);
+  validEntries.sort((a, b) => a.date - b.date);
+
+  if (validEntries.length) {
+    roadmapRange.textContent = `${formatRoadmapRange(validEntries[0].date)} → ${formatRoadmapRange(validEntries[validEntries.length - 1].date)}`;
+    const inMotion = validEntries.filter(entry => /track|active|planning|preparing/i.test(entry.status || '')).length;
+    roadmapSummary.innerHTML = `<span>${validEntries.length} milestones</span><span>${inMotion} in motion</span>`;
+    ganttTimelineHeader.innerHTML = validEntries.slice(0, 6).map(entry => `
+      <div class="gantt-tick">${entry.date.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })}</div>
+    `).join('');
+    ganttRows.innerHTML = validEntries.slice(0, 6).map((entry, index) => `
+      <div class="gantt-row">
+        <div class="gantt-row-label">
+          <strong>${entry.title}</strong>
+          <span>${entry.description}</span>
+        </div>
+        <div class="gantt-bar-wrap">
+          <span class="pill ${getPillClass(entry.status)}">${entry.type}</span>
+          <div class="gantt-bar" style="width:${Math.max(28, 100 - index * 10)}%"></div>
+          <small>${entry.label}</small>
+        </div>
+      </div>
+    `).join('');
+  } else {
+    roadmapRange.textContent = 'No roadmap milestones available yet';
+    roadmapSummary.innerHTML = '<span>0 milestones</span>';
+    ganttTimelineHeader.innerHTML = '<div class="gantt-tick">No dates</div>';
+    ganttRows.innerHTML = '<div class="gantt-row"><div class="gantt-row-label"><strong>Nothing to show yet</strong><span>Add dates to projects or timeline entries to populate the roadmap.</span></div></div>';
+  }
+}
+
+function parseRoadmapDate(value) {
+  if (!value || typeof value !== 'string') return null;
+  const trimmed = value.trim();
+  if (!trimmed || trimmed.toUpperCase() === 'TBD') return null;
+  const parsed = new Date(trimmed);
+  return Number.isNaN(parsed.valueOf()) ? null : parsed;
+}
+
+function formatRoadmapRange(value) {
+  return value.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
 }
 
 function formatDate(value) {
