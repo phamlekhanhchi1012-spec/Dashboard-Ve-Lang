@@ -20,7 +20,7 @@
       "description": "Standalone experiences combining sport, culture and social connection.",
       "currentEvent": "Workshop đĩa than",
       "nextEvent": "2026-08-30",
-      "partner": "Sterik Cafe"
+      "partner": "Sterik Cafe and Urban Sketches"
     },
     {
       "name": "SS Music Run",
@@ -72,7 +72,7 @@
     },
     {
       "name": "Revive",
-      "project": "Weekly Funrun",
+      "project": "Weekly Funrun, Về Làng Series,..",
       "status": "Negotiating"
     },
     {
@@ -91,19 +91,19 @@
       "status": "Idea"
     },
     {
-      "name": "Redline",
-      "project": "TBD",
+      "name": "REDLINE",
+      "project": "REDLINE Training Program (Offline & Online)",
       "status": "Planning"
     },
     {
       "name": "Bơnana",
-      "project": "Events",
-      "status": "Planning"
+      "project": "Events (Vẽ Tranh)",
+      "status": "Idea"
     },
     {
       "name": "Under Armour",
       "project": "TBD",
-      "status": "Planning"
+      "status": "Idea"
     }
   ],
   "timeline": [
@@ -169,31 +169,31 @@
       {
         "id": "activefox",
         "name": "ActiveFox",
-        "role": "Event partner",
+        "role": "Training partner",
         "color": "#F26A2E"
       },
       {
         "id": "redline",
-        "name": "Redline",
-        "role": "Race partner",
+        "name": "REDLINE",
+        "role": "Prize Sponsorship, đối tác truyền thông",
         "color": "#E83224"
       },
       {
         "id": "pace",
         "name": "PACE Training",
-        "role": "Community partner",
+        "role": "Training platform partner",
         "color": "#2FAF7A"
       },
       {
         "id": "stretch",
         "name": "Stretch.vn",
-        "role": "Culture partner",
-        "color": "#5B8DEF"
+        "role": "Training partner (phục hồi)",
+        "color": "#39A1C8"
       },
       {
         "id": "onway",
         "name": "ONWAY",
-        "role": "Community partner",
+        "role": "Strategic Partner",
         "color": "#9A67EA"
       },
       {
@@ -240,7 +240,7 @@
       {
         "id": "redline-rumble-01",
         "date": "2026-08-23",
-        "title": "Redline Rumble",
+        "title": "REDLINE PROGRAM",
         "type": "Event",
         "partnerIds": [
           "activefox",
