@@ -23,13 +23,19 @@
       "partner": "Sterik Cafe and Urban Sketches"
     },
     {
+      "name": "Training Program with SS (Global City)",
+      "status": "Planning",
+      "group": "Backlog",
+      "description": "A structured training program with SpaceSpeakers."
+    },
+    {
       "name": "SS Music Run",
       "status": "Planning",
       "group": "Backlog",
       "description": "A music-driven run planned for September with sponsor integration.",
       "currentEvent": "Concept Planning",
       "nextEvent": "Tháng 9, chưa chốt ngày",
-      "partner": "SS"
+      "partner": "SpaceSpeakers"
     },
     {
       "name": "Về Làng ",
@@ -38,7 +44,7 @@
       "description": "A cultural series focused on stories, identity and shared experiences.",
       "currentEvent": "Về Làng #1",
       "nextEvent": "2026-08-15",
-      "partner": "Stretch.vn, PACE Training"
+      "partner": "Stretch.vn, PACE Training, ONWAY"
     },
     {
       "name": "REDLINE 23.08 Rumble Events",
@@ -234,7 +240,7 @@
         "date": "2026-08-19",
         "title": "Training SpaceSpeakers",
         "type": "Training",
-        "partnerIds": []
+        "partnerIds": ["SS"]
       },
       {
         "id": "redline-rumble-01",

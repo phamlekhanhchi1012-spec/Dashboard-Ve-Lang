@@ -174,9 +174,10 @@ function renderRoadmapPartners(partners, events, container) {
 
   const partnerMap = getRoadmapPartnerMap(partners);
   const markup = partners.map(partner => {
-    const linkedCount = events.filter(event => event.partnerIds?.includes(partner.id)).length;
+    const partnerId = normalizeRoadmapPartnerId(partner.id);
+    const linkedCount = events.filter(event => normalizeRoadmapPartnerIds(event.partnerIds).includes(partnerId)).length;
     return `
-      <button class="roadmap-partner-chip" type="button" data-partner-id="${escapeHtml(partner.id)}" aria-label="Show events for ${escapeHtml(partner.name)}">
+      <button class="roadmap-partner-chip" type="button" data-partner-id="${escapeHtml(partnerId)}" aria-label="Show events for ${escapeHtml(partner.name)}">
         <span class="roadmap-partner-meta">
           <strong>${escapeHtml(partner.name)}</strong>
           <span>${escapeHtml(partner.role || 'Partner')}</span>
@@ -223,7 +224,7 @@ function renderRoadmapEvents(partners, events, container) {
     const partnerMarkers = renderEventPartnerMarkers(event, partnerMap);
     const dateLabel = formatRoadmapDate(event.parsedDate);
     return `
-      <article class="roadmap-event-card" data-partner-ids="${escapeHtml(event.partnerIds?.join(' ') || '')}">
+      <article class="roadmap-event-card" data-partner-ids="${escapeHtml(normalizeRoadmapPartnerIds(event.partnerIds).join(' '))}">
         <div class="roadmap-event-accent"></div>
         <span class="roadmap-event-date">${escapeHtml(dateLabel)}</span>
         <strong>${escapeHtml(event.title)}</strong>
@@ -259,9 +260,24 @@ function renderRoadmapEvents(partners, events, container) {
 
 function getRoadmapPartnerMap(partners) {
   return partners.reduce((accumulator, partner) => {
-    accumulator[partner.id] = partner;
+    const id = normalizeRoadmapPartnerId(partner.id);
+    if (id) accumulator[id] = partner;
     return accumulator;
   }, {});
+}
+
+function normalizeRoadmapPartnerId(value) {
+  return String(value ?? '').trim().toLowerCase();
+}
+
+function normalizeRoadmapPartnerIds(value) {
+  if (Array.isArray(value)) {
+    return value.map(normalizeRoadmapPartnerId).filter(Boolean);
+  }
+  if (typeof value === 'string') {
+    return value.split(/[,;]+/).map(normalizeRoadmapPartnerId).filter(Boolean);
+  }
+  return [];
 }
 
 function renderEventPartnerMarkers(event, partnerMap) {
