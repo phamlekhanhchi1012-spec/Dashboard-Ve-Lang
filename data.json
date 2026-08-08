@@ -137,6 +137,11 @@
       "description": "Partner: ActiveFox × REDLINE"
     },
     {
+      "date":"2026-08-30",
+      "title":"Workshop đĩa than",
+      "description":"Partner: Sterik Cafe and Urban Sketchers"
+    }
+    ,{
       "date": "2026-09-13",
       "title": "Under Armour × REDLINE",
       "description": "Partner: Under Armour × REDLINE"
@@ -232,7 +237,7 @@
         "type": "Về Làng Event",
         "partnerIds": [
           "revive",
-          "onway",
+          "stretch",
           "pace"
         ]
       },
