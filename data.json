@@ -242,6 +242,7 @@
         "title": "Training SpaceSpeakers",
         "type": "Training",
         "partnerIds": [
+          "pace",
           "spacespeakers"
         ]
       },
