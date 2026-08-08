@@ -192,7 +192,7 @@ function renderRoadmap(data) {
       partnerIds: normalizeRoadmapPartnerIds(event.partnerIds),
       parsedDate: parseRoadmapDate(event.date)
     }))
-    .filter(event => event.parsedDate)
+    .filter(event => event.parsedDate && !/weekly funrun/i.test(event.title || '') && !/weekly funrun/i.test(event.id || ''))
     .sort((a, b) => a.parsedDate - b.parsedDate);
 
   renderRoadmapPartners(partners, events, partnerTrack);
@@ -307,7 +307,9 @@ function renderEventPartnerMarkers(event, partnerMap) {
   return partnerIds
     .map((partnerId) => {
       const partner = partnerMap[partnerId];
-      if (!partner) return '';
+      if (!partner) {
+        return `<span class="roadmap-event-partner" data-partner-id="${escapeHtml(partnerId)}">${escapeHtml(partnerId.replace(/[-_]/g, ' '))}</span>`;
+      }
       return `<span class="roadmap-event-partner" data-partner-id="${escapeHtml(partnerId)}">${escapeHtml(partner.name)}</span>`;
     })
     .filter(Boolean)
