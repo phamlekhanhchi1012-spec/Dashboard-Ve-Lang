@@ -1,18 +1,18 @@
 {
   "team": [
-    "LANGHOOD team"
+    "LANGHOOD CORE TEAM"
   ],
-  "objective": "Langhood Project Hub",
+  "objective": "LANGHOOD DASHBOARD",
   "projects": [
     
     {
-      "name": "Events",
+      "name": "Art Events With Sterik",
       "status": "Idea",
       "group": "Active",
       "description": "Standalone experiences combining sport, culture and social connection.",
       "currentEvent": "Workshop đĩa than",
       "nextEvent": "2026-08-30",
-      "partner": "Sterik Cafe and Urban Sketchers"
+      "partner": "Sterik Cafe and Urban Sketchers & District M"
     },
     {
       "name": "Training Program with SS (Global City)",
@@ -38,7 +38,7 @@
       "group": "Upcoming",
       "description": "A cultural series focused on stories, identity and shared experiences.",
       "currentEvent": "Về Làng #1",
-      "nextEvent": "2026-10 (TBD)",
+      "nextEvent": "To be updated",
       "location": "TBD: Lâm Đồng / Làng Chài",
       "partner": "Stretch.vn, PACE Training, ONWAY"
     },
@@ -115,7 +115,7 @@
   ],
   "timeline": [
     {
-      "date": "2026-10 (TBD)",
+      "date": "To be updated",
       "title": "Về Làng",
       "description": "Culture event — location TBD: Lâm Đồng / Làng Chài",
       "location": "TBD: Lâm Đồng / Làng Chài"
@@ -137,7 +137,7 @@
     }
     ,{
       "date": "2026-09-13",
-      "title": "Under Armour × REDLINE",
+      "title": "REDLINE x Under Armour",
       "description": "Partner: Under Armour × REDLINE"
     },
     {
