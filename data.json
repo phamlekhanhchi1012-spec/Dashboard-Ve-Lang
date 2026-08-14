@@ -26,7 +26,7 @@
     {
       "name": "SS Music Run",
       "status": "Planning",
-      "group": "Backlog",
+      "group": "Upcoming",
       "description": "A music-driven run planned for September with sponsor integration.",
       "currentEvent": "Concept Planning",
       "nextEvent": "Tháng 9, chưa chốt ngày",
@@ -35,7 +35,7 @@
     {
       "name": "Về Làng",
       "status": "Preparing",
-      "group": "Backlog",
+      "group": "Upcoming",
       "description": "A cultural series focused on stories, identity and shared experiences.",
       "currentEvent": "Về Làng #1",
       "nextEvent": "2026-10 (TBD)",
@@ -259,7 +259,7 @@
       {
         "id": "under-armour-redline-01",
         "date": "2026-09-13",
-        "title": "Under Armour × REDLINE",
+        "title": "REDLINE x Under Armour",
         "type": "Collaboration",
         "partnerIds": [
           "under-armour",

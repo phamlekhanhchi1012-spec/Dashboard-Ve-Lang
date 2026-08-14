@@ -41,10 +41,10 @@ function renderSummary(data) {
   if (!summaryGrid) return;
 
   const activeProjects = Array.isArray(data.projects)
-    ? data.projects.filter(project => project.group?.toString().toLowerCase() !== 'backlog')
+    ? data.projects.filter(project => project.group?.toString().toLowerCase() !== 'upcoming')
     : [];
   const backlogProjects = Array.isArray(data.projects)
-    ? data.projects.filter(project => project.group?.toString().toLowerCase() === 'backlog')
+    ? data.projects.filter(project => project.group?.toString().toLowerCase() === 'upcoming')
     : [];
 
   const partnerCount = Array.isArray(data.partners) ? data.partners.length : 0;
@@ -65,7 +65,7 @@ function renderSummary(data) {
       description: 'Projects currently in execution.'
     },
     {
-      title: 'Backlog',
+      title: 'Upcoming',
       value: String(backlogProjects.length),
       description: 'Projects waiting for planning or approval.'
     },
