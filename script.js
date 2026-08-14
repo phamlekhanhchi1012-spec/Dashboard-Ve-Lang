@@ -253,7 +253,10 @@ function renderRoadmapEvents(partners, events, container) {
   const railMarkup = '<div class="roadmap-timeline-rail"></div>';
   const eventMarkup = events.map((event, index) => {
     const position = calculateEventPosition(event.parsedDate, startDate, endDate);
-    const dateLabel = formatRoadmapDate(event.parsedDate);
+    const isMonthOnly = ['ve-lang-01', 'ss-music-run-01'].includes(event.id);
+    const dateLabel = (isMonthOnly && event.parsedDate)
+      ? event.parsedDate.toLocaleDateString('en-GB', { month: 'short' })
+      : formatRoadmapDate(event.parsedDate);
     const partnerMarkers = renderEventPartnerMarkers(event, partnerMap);
     return `
       <article class="roadmap-event-card" data-partner-ids="${escapeHtml(event.partnerIds.join(' '))}">
