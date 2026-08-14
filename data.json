@@ -4,19 +4,11 @@
   ],
   "objective": "Langhood Project Hub",
   "projects": [
-    {
-      "name": "Weekly Funrun",
-      "status": "On Track",
-      "group": "Active",
-      "description": "Recurring Sunday community runs with rotating locations.",
-      "currentEvent": "Fun Run (Cầu Ba Son, Quận 1)",
-      "nextEvent": "2026-08-08",
-      "partner": "No partner"
-    },
+    
     {
       "name": "Events",
       "status": "Idea",
-      "group": "Backlog",
+      "group": "Active",
       "description": "Standalone experiences combining sport, culture and social connection.",
       "currentEvent": "Workshop đĩa than",
       "nextEvent": "2026-08-30",
@@ -25,7 +17,7 @@
     {
       "name": "Training Program with SS (Global City)",
       "status": "Planning",
-      "group": "Backlog",
+      "group": "Active",
       "description": "A structured training program with SpaceSpeakers.",
       "currentEvent": "Planning",
       "nextEvent": "TBD",
@@ -43,16 +35,17 @@
     {
       "name": "Về Làng",
       "status": "Preparing",
-      "group": "Active",
+      "group": "Backlog",
       "description": "A cultural series focused on stories, identity and shared experiences.",
       "currentEvent": "Về Làng #1",
-      "nextEvent": "2026-08-15",
+      "nextEvent": "2026-10 (TBD)",
+      "location": "TBD: Lâm Đồng / Làng Chài",
       "partner": "Stretch.vn, PACE Training, ONWAY"
     },
     {
       "name": "REDLINE 23.08 Rumble Events",
       "status": "Planning",
-      "group": "Backlog",
+      "group": "Active",
       "description": "Rumble Events planning for the Redline showcase.",
       "currentEvent": "Partner Planning",
       "nextEvent": "2026-08-23",
@@ -61,7 +54,7 @@
     {
       "name": "Under Armour × REDLINE",
       "status": "Planning",
-      "group": "Backlog",
+      "group": "Active",
       "description": "Under Armour collaboration concept for September.",
       "currentEvent": "Partner Planning",
       "nextEvent": "2026-09-13",
@@ -81,7 +74,7 @@
     },
     {
       "name": "Revive",
-      "project": "Weekly Funrun, Về Làng",
+      "project": "Về Làng",
       "status": "Negotiating"
     },
     {
@@ -91,7 +84,7 @@
     },
     {
       "name": "ONWAY",
-      "project": "Weekly Funrun, Về Làng",
+      "project": "Về Làng",
       "status": "Negotiating - Scope TBD"
     },
     {
@@ -122,9 +115,10 @@
   ],
   "timeline": [
     {
-      "date": "2026-08-15",
+      "date": "2026-10 (TBD)",
       "title": "Về Làng",
-      "description": "Culture event"
+      "description": "Culture event — location TBD: Lâm Đồng / Làng Chài",
+      "location": "TBD: Lâm Đồng / Làng Chài"
     },
     {
       "date": "2026-08-19",
@@ -154,10 +148,10 @@
   ],
   "tasks": [
     {
-      "title": "Trả bài truyền thông cho nhà tài trợ",
+      "title": "Double-check Về Làng Date & Location",
       "project": "Về Làng",
       "priority": "High",
-      "due": "2026-08-05"
+      "due": "2026-08-30"
     },
     {
       "title": "Bán vé và launch",
@@ -232,9 +226,10 @@
     "events": [
       {
         "id": "ve-lang-01",
-        "date": "2026-08-15",
+        "date": "2026-10 (TBD)",
         "title": "Về Làng #1",
         "type": "Về Làng Event",
+        "location": "TBD: Lâm Đồng / Làng Chài",
         "partnerIds": [
           "revive",
           "stretch",
