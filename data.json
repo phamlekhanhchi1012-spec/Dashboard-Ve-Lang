@@ -7,7 +7,7 @@
     
     {
       "name": "Art Events With Sterik",
-      "status": "Idea",
+      "status": "Planning",
       "group": "Active",
       "description": "Standalone experiences combining sport, culture and social connection.",
       "currentEvent": "Workshop đĩa than",
@@ -25,7 +25,7 @@
     },
     {
       "name": "SS Music Run",
-      "status": "Planning",
+      "status": "Idea",
       "group": "Upcoming",
       "description": "A music-driven run planned for September with sponsor integration.",
       "currentEvent": "Concept Planning",
@@ -34,7 +34,7 @@
     },
     {
       "name": "Về Làng",
-      "status": "Preparing",
+      "status": "Planning",
       "group": "Upcoming",
       "description": "A cultural series focused on stories, identity and shared experiences.",
       "currentEvent": "Về Làng #1",
