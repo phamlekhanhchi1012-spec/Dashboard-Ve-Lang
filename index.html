@@ -1,181 +1,711 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
   <title>Langhood Project Hub</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Roboto+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+
   <style>
-:root{
-  --bg:#fffbf5;--surface:#fff;--surface-soft:#f8f8f9;--text:#141414;
-  --muted:#737373;--border:#e8e8ea;--accent:#fa2d1a;--accent-soft:#fff0ed;
-  --success:#1f7a4d;--success-soft:#ebf7f0;--warning:#9a6700;
-  --warning-soft:#fff6dc;--shadow:0 10px 30px rgba(18,18,18,.04)
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:"Plus Jakarta Sans",sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+    /* =========================
+       1) Design tokens
+    ========================== */
+    :root {
+      --bg: #f9f9f0;
+      --surface: #ffffff;
+      --surface-soft: #f8f8f9;
+      --text: #151515;
+      --muted: #737373;
+      --border: #e7e7ea;
+      --accent: #fa2d1a;
+      --accent-soft: #fff0ed;
+      --success: #1f7a4d;
+      --success-soft: #ebf7f0;
+      --warning: #9a6700;
+      --warning-soft: #fff6dc;
+      --danger: #b83b2f;
+      --danger-soft: #fff0ee;
+      --sidebar: #252424;
+      --shadow: 0 10px 30px rgba(18, 18, 18, .04);
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+      --content-max: 1320px;
+    }
 
-/* Header and major headings use Roboto Mono for a monospaced look */
-header, .topbar, .topbar h1, h1, h2 {font-family: 'Roboto Mono', monospace}
-button,input{font:inherit}a{color:inherit;text-decoration:none}
-.app-shell{min-height:100vh;display:grid;grid-template-columns:248px minmax(0,1fr)}
-.sidebar{position:sticky;top:0;height:100vh;padding:28px 22px;background:#111;color:#fff;display:flex;flex-direction:column}
-.brand{display:flex;align-items:center;gap:12px;padding:0 8px}
-.brand-mark{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--accent);font-weight:700}
-.brand strong,.brand span{display:block}.brand strong{font-size:14px;letter-spacing:.08em}
-.brand span{color:#969696;font-size:12px;margin-top:2px}
-.nav-list{margin-top:42px;display:grid;gap:8px}
-.nav-item{color:#a9a9a9;padding:11px 14px;border-radius:10px;font-size:14px;transition:.2s ease}
-.nav-item:hover{color:#fff;background:#1c1c1c}
-.nav-item.active{color:#fff;background:#202020;box-shadow:inset 3px 0 0 var(--accent)}
-.sidebar-note{margin-top:auto;padding:18px;border:1px solid #2a2a2a;border-radius:14px;background:#181818}
-.sidebar-note p{margin-top:8px;color:#a7a7a7;font-size:12px;line-height:1.7}
-.main-content{padding:42px;overflow:hidden}
-.topbar{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;margin-bottom:32px}
-.topbar h1{margin-top:6px;font-size:clamp(30px,4vw,44px);letter-spacing:-.04em;line-height:1.1}
-.topbar p{margin-top:10px;color:var(--muted);max-width:620px}
-.eyebrow{color:var(--muted);font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}
-.header-actions{display:flex;align-items:center;gap:10px}
-.search-box{min-width:230px;height:42px;padding:0 14px;display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:12px}
-.search-box input{width:100%;border:0;outline:0;background:transparent;color:var(--text)}
-.icon-button{height:42px;padding:0 16px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--text);cursor:pointer}
-.summary-grid{display:grid;grid-template-columns:1.25fr repeat(3,1fr);gap:16px;margin-bottom:42px}
-.summary-card,.project-card,.timeline-card,.partner-card,.task-board,.roadmap-board{background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow)}
-.summary-card{min-height:170px;padding:22px;border-radius:18px}
-.summary-card.featured{background:#111;color:#fff;border-color:#111}
-.summary-card.featured .eyebrow,.summary-card.featured p{color:#a5a5a5}
-.summary-card p{margin-top:14px;color:var(--muted);font-size:13px}
-.status-line{margin-top:22px;display:flex;align-items:center;gap:10px;font-size:24px}
-.status-dot{width:10px;height:10px;background:#37c878;border-radius:50%;box-shadow:0 0 0 5px rgba(55,200,120,.12)}
-.metric{display:block;margin-top:18px;font-size:34px;letter-spacing:-.04em}
-.section-block{margin-bottom:42px}.section-heading{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:16px}
-.section-heading h2{margin-top:4px;font-size:24px;letter-spacing:-.03em}
-.section-heading a,.task-count{color:var(--muted);font-size:13px}
-.project-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-#backlogProjectGrid.project-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.project-card{padding:22px;border-radius:18px;transition:transform .18s ease,box-shadow .18s ease}
-.project-card-backlog{padding:18px;border-radius:16px}
-.project-card-backlog h3{font-size:18px;margin-top:20px}
-.project-card-backlog .project-description{font-size:12px;max-width:100%}
-.project-card-backlog .project-meta{margin-top:18px;padding-top:16px}
-.project-card:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(18,18,18,.08)}
-.project-card-top{display:flex;justify-content:space-between;align-items:center}
-.project-index{color:#b0b0b0;font-size:12px;font-weight:700}
-.project-card h3{margin-top:28px;font-size:22px;letter-spacing:-.03em}
-.project-description{margin-top:9px;color:var(--muted);font-size:13px;max-width:560px}
-.project-meta{margin-top:24px;padding-top:18px;border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.project-meta span,.project-meta strong{display:block}.project-meta span{color:var(--muted);font-size:11px;margin-bottom:5px}.project-meta strong{font-size:13px}
-.pill{display:inline-flex;align-items:center;width:fit-content;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:600}
-.pill.success{color:var(--success);background:var(--success-soft)}.pill.warning{color:var(--warning);background:var(--warning-soft)}
-.pill.neutral{color:#525252;background:#f0f0f1}.pill.accent{color:var(--accent);background:var(--accent-soft)}
-.roadmap-board{padding:20px;border-radius:24px;display:grid;gap:18px}
-.roadmap-partner-track{display:flex;flex-wrap:wrap;gap:10px;padding-bottom:2px}
-.roadmap-partner-chip{display:flex;align-items:center;gap:8px;padding:10px 12px;border:1px solid var(--border);border-radius:999px;background:var(--surface-soft);color:var(--text);cursor:pointer;transition:border-color .2s ease,transform .2s ease,box-shadow .2s ease}
-.roadmap-partner-chip::before{content:"";width:10px;height:10px;border-radius:999px;background:var(--roadmap-partner-color,var(--accent));flex-shrink:0}
-.roadmap-partner-chip strong{font-size:13px}
-.roadmap-partner-chip span{font-size:11px;color:var(--muted)}
-.roadmap-partner-chip:hover,.roadmap-partner-chip:focus-visible{transform:translateY(-1px);border-color:var(--roadmap-partner-color,var(--accent));box-shadow:0 10px 24px rgba(18,18,18,.06)}
-.roadmap-partner-chip.is-active{border-color:var(--roadmap-partner-color,var(--accent));box-shadow:0 0 0 1px color-mix(in srgb, var(--roadmap-partner-color,var(--accent)) 26%, transparent)}
-.roadmap-timeline-scroll{overflow-x:auto;padding-bottom:6px}
-.roadmap-timeline{position:relative;min-width:760px;min-height:250px;padding:16px 0 0}
-.roadmap-month-labels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:16px;padding-left:84px;padding-right:84px}
-.roadmap-month-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:center}
-.roadmap-timeline-rail{position:absolute;left:80px;right:80px;top:50%;height:1px;background:var(--border);transform:translateY(-50%)}
-.roadmap-event-card{position:absolute;left:calc(var(--event-left, 50%) - 92px);top:calc(var(--event-top, 0px));width:184px;padding:12px 12px 14px;border:1px solid var(--border);border-radius:16px;background:var(--surface);box-shadow:var(--shadow);display:grid;gap:8px;transition:border-color .2s ease,transform .2s ease,opacity .2s ease}
-.roadmap-event-card.is-highlighted{border-color:var(--roadmap-partner-color,var(--accent));transform:translateY(-2px)}
-.roadmap-event-card.is-muted{opacity:.45}
-#roadmapTimeline .roadmap-event-card strong{font-size:14px;line-height:1.3;color:#fff !important}
-#roadmapTimeline .roadmap-event-card{color:#fff !important}
-.roadmap-event-accent{height:4px;border-radius:999px;background:var(--event-accent,var(--accent));opacity:.95}
-.roadmap-event-card p{font-size:12px;color:var(--muted)}
-.roadmap-event-date{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.roadmap-event-partners{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
-.roadmap-event-partner{display:inline-flex;align-items:center;gap:6px;padding:4px 7px;border-radius:999px;background:var(--surface-soft);font-size:10px;font-weight:700;color:var(--text)}
-.roadmap-event-partner::before{content:"";width:7px;height:7px;border-radius:999px;background:var(--roadmap-partner-color,var(--accent));flex-shrink:0}
-.roadmap-event-empty{padding:18px 20px;border:1px dashed var(--border);border-radius:16px;color:var(--muted);background:var(--surface-soft)}
-.two-column-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr);gap:20px}
-.timeline-card{border-radius:18px;padding:6px 22px}
-.timeline-item{display:flex;gap:16px;padding:18px 0;border-bottom:1px solid var(--border)}.timeline-item:last-child{border-bottom:0}
-.timeline-item-large{padding:20px 0}
-.timeline-date{width:60px;height:60px;border-radius:18px;background:var(--surface-soft);display:grid;place-items:center;flex-shrink:0}
-.timeline-date span{font-size:18px;font-weight:700;line-height:1}.timeline-date small{color:var(--muted);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
-.timeline-content strong{display:block;margin-top:4px;font-size:15px}
-.timeline-content p{margin-top:6px;color:var(--muted);font-size:13px;line-height:1.5}
-.partner-list{display:grid;gap:12px}.partner-card{padding:16px;border-radius:16px;display:flex;align-items:center;gap:12px}
-.partner-avatar{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:#111;color:#fff;font-weight:700}
-.partner-info{flex:1;min-width:0}.partner-info strong,.partner-info span{display:block}.partner-info strong{font-size:14px}.partner-info span{margin-top:3px;color:var(--muted);font-size:11px}
-.task-board{overflow:hidden;border-radius:18px}.task-row{min-height:76px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid var(--border)}
-.task-row:last-child{border-bottom:0}.task-main{display:flex;align-items:center;gap:13px;cursor:pointer}.task-main input{width:18px;height:18px;accent-color:var(--accent)}
-.task-main strong,.task-main small{display:block}.task-main strong{font-size:14px}.task-main small{margin-top:4px;color:var(--muted);font-size:11px}
-.priority{padding:6px 10px;border-radius:999px;font-size:11px;font-weight:600}.priority.high{color:var(--accent);background:var(--accent-soft)}
-.priority.medium{color:var(--warning);background:var(--warning-soft)}.priority.low{color:var(--success);background:var(--success-soft)}
-.footer{padding:14px 0 2px;border-top:1px solid var(--border);color:var(--muted);font-size:11px;display:flex;justify-content:space-between}
-body.dark{--bg:#0f0f10;--surface:#171718;--surface-soft:#202023;--text:#f5f5f5;--muted:#949494;--border:#2b2b2d;--shadow:none}
-body.dark .summary-card.featured{background:#f4f4f4;color:#111;border-color:#f4f4f4}
-body.dark .summary-card.featured .eyebrow,body.dark .summary-card.featured p{color:#666}
-body.dark .partner-avatar{background:#f1f1f1;color:#111}
-body.dark .roadmap-board{background:#171718}
-body.dark .roadmap-partner-chip,.roadmap-event-card{background:#1c1c1f}
-body.dark .roadmap-event-card,.roadmap-partner-chip{border-color:#303032}
-body.dark .roadmap-event-partner{background:#242427}
-@media(max-width:1100px){.summary-grid{grid-template-columns:repeat(2,1fr)}.two-column-layout{grid-template-columns:1fr}}
-@media(max-width:820px){.app-shell{grid-template-columns:1fr}.sidebar{position:static;height:auto;padding:18px}.nav-list{margin-top:20px;display:flex;gap:8px;overflow-x:auto}.nav-item{white-space:nowrap}.sidebar-note{display:none}.main-content{padding:26px 18px}.topbar{flex-direction:column}.header-actions,.search-box{width:100%}.project-grid{grid-template-columns:1fr}}
-@media(max-width:620px){.summary-grid{grid-template-columns:1fr}.project-meta{grid-template-columns:1fr}.task-row{align-items:flex-start}.footer{flex-direction:column;gap:6px}.roadmap-event-card{width:160px;left:calc(var(--event-left, 50%) - 80px)}.roadmap-month-labels{padding-left:64px;padding-right:64px}}
+    body.dark {
+      --bg: #0f0f10;
+      --surface: #171718;
+      --surface-soft: #202023;
+      --text: #f5f5f5;
+      --muted: #9a9a9a;
+      --border: #2b2b2d;
+      --sidebar: #090909;
+      --shadow: none;
+    }
 
-#tasks{display:none !important}
-#tasks ~ .section-block{display:none !important}
+    /* =========================
+       2) Base
+    ========================== */
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    button, input { font: inherit; }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3, .mono { font-family: "Roboto Mono", monospace; }
+    .eyebrow {
+      color: var(--muted);
+      font: 700 11px/1.2 "Roboto Mono", monospace;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
 
+    /* =========================
+       3) App layout
+    ========================== */
+    .app-shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 240px minmax(0, 1fr);
+    }
 
-/* Combined Projects + Timeline — vertical editorial timeline */
-.project-timeline{position:relative;padding:8px 0 8px 38px;max-width:1050px}
-.project-timeline::before{content:"";position:absolute;left:11px;top:18px;bottom:22px;width:1px;background:var(--accent)}
-.project-timeline-item{position:relative;padding:18px 0 34px 18px}
-.project-timeline-marker{position:absolute;left:-34px;top:24px;width:16px;height:16px;border:2px solid var(--accent);border-radius:50%;background:var(--bg)}
-.project-timeline-kicker{margin-bottom:12px;color:var(--accent);font-family:'Roboto Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
-.project-timeline-body{padding:0 0 0 0}
-.project-timeline-title-row{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:900px}
-.project-timeline-title-row h3{font-family:'Roboto Mono',monospace;font-size:24px;letter-spacing:-.04em;line-height:1.2}
-.project-timeline-meta{display:flex;flex-wrap:wrap;gap:34px;margin-top:18px}
-.project-timeline-meta div{min-width:120px}
-.project-timeline-meta span,.project-timeline-meta strong{display:block}
-.project-timeline-meta span{color:var(--muted);font-family:'Roboto Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
-.project-timeline-meta strong{margin-top:5px;font-size:13px}
-.project-timeline-body>p{max-width:780px;margin-top:16px;color:var(--muted);font-size:14px;line-height:1.65}
-body.dark .project-timeline-marker{background:var(--bg)}
-@media(max-width:620px){.project-timeline{padding-left:30px}.project-timeline::before{left:8px}.project-timeline-marker{left:-28px}.project-timeline-title-row{align-items:flex-start;flex-direction:column}.project-timeline-meta{gap:18px}.project-timeline-title-row h3{font-size:20px}}
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 26px 18px;
+      background: var(--sidebar);
+      color: #fff;
+    }
 
-  
-/* 2026-08-14 dashboard refinement */
-.summary-grid{grid-template-columns:1.05fr repeat(3,1fr);gap:12px;margin-bottom:34px}
-.summary-card{min-height:118px;padding:16px 18px;border-radius:14px}
-.summary-card.featured{min-height:118px;padding:16px 18px}
-.summary-card .metric{font-size:24px;margin:7px 0 4px}.summary-card p{font-size:12px;line-height:1.45}
-.timeline-group-heading{display:flex;align-items:center;gap:12px;margin:8px 0 18px}.timeline-group-heading.on-hold{margin-top:48px}
-.timeline-group-heading h3{font-size:22px;margin-top:2px}.timeline-group-dot{width:10px;height:10px;border-radius:50%;display:block}.timeline-group-dot.active{background:#24a36a}.timeline-group-dot.hold{background:#e0a51c}
-.project-timeline-hold::before{background:#e0a51c}.project-timeline-item.is-hold .project-timeline-marker{border-color:#e0a51c}.project-timeline-item.is-hold .project-timeline-kicker{color:#b67d00}
-.project-branches{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px;max-width:780px;padding-left:18px;position:relative}
-.project-branches::before{content:'';position:absolute;left:0;top:-10px;bottom:50%;width:1px;background:var(--accent)}
-.project-branch{position:relative;padding:14px 16px;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:10px;background:var(--surface)}
-.project-branch span,.project-branch small{display:block}.project-branch span{font:700 10px 'Roboto Mono',monospace;color:var(--accent);text-transform:uppercase;letter-spacing:.08em}.project-branch strong{display:block;margin:6px 0 4px;font-size:14px}.project-branch small{color:var(--muted);font-size:11px}
-.partner-status-board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
-.partner-status-column{border:1px solid var(--border);border-radius:16px;background:var(--surface);overflow:hidden;box-shadow:var(--shadow)}
-.partner-column-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border);font-size:13px}.partner-column-head>div{display:flex;align-items:center;gap:8px}.partner-column-head>span{font:700 11px 'Roboto Mono',monospace;color:var(--muted)}
-.status-dot{width:8px;height:8px;border-radius:50%;display:inline-block}.confirmed .status-dot{background:#24a36a}.negotiating .status-dot{background:#e0a51c}.idea .status-dot{background:#e54b3b}
-.partner-column-list{padding:10px;display:grid;gap:8px}.partner-mini-card{padding:12px;border:1px solid var(--border);border-radius:11px;background:var(--bg)}.partner-mini-card strong,.partner-mini-card span{display:block}.partner-mini-card strong{font-size:13px}.partner-mini-card span{margin-top:4px;color:var(--muted);font-size:11px;line-height:1.4}.partner-empty{padding:12px;color:var(--muted);font-size:12px}
-@media(max-width:900px){.partner-status-board{grid-template-columns:1fr}.project-branches{grid-template-columns:1fr}}
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 8px;
+    }
 
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: var(--accent);
+      font-weight: 700;
+    }
+
+    .brand strong,
+    .brand span { display: block; }
+    .brand strong { font-size: 14px; letter-spacing: .08em; }
+    .brand span { margin-top: 2px; color: #8f8f8f; font-size: 12px; }
+
+    .nav-list {
+      display: grid;
+      gap: 6px;
+      margin-top: 38px;
+    }
+
+    .nav-item {
+      padding: 11px 14px;
+      border-radius: 10px;
+      color: #a8a8a8;
+      font-size: 14px;
+      transition: .18s ease;
+    }
+
+    .nav-item:hover {
+      color: #fff;
+      background: #1c1c1c;
+    }
+
+    .nav-item.active {
+      color: #fff;
+      background: #202020;
+      box-shadow: inset 3px 0 0 var(--accent);
+    }
+
+    .sidebar-note {
+      margin-top: auto;
+      padding: 16px;
+      border: 1px solid #2a2a2a;
+      border-radius: 14px;
+      background: #181818;
+    }
+
+    .sidebar-note p {
+      margin: 8px 0 0;
+      color: #aaa;
+      font-size: 12px;
+    }
+
+    .main-content {
+      width: min(100%, var(--content-max));
+      margin: 0 auto;
+      padding: 36px 38px 48px;
+    }
+
+    /* =========================
+       4) Header / utility
+    ========================== */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .topbar h1 {
+      margin: 6px 0 0;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1.08;
+      letter-spacing: -.04em;
+    }
+
+    .topbar p {
+      max-width: 680px;
+      margin: 10px 0 0;
+      color: var(--muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .search-box {
+      min-width: 240px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 13px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface);
+    }
+
+    .search-box input {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--text);
+    }
+
+    .icon-button {
+      height: 42px;
+      padding: 0 15px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    /* =========================
+       5) Summary
+    ========================== */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1.05fr repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+
+    .summary-card {
+      min-height: 118px;
+      padding: 16px 18px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .summary-card.featured {
+      background: #111;
+      border-color: #111;
+      color: #fff;
+    }
+
+    body.dark .summary-card.featured {
+      background: #f3f3f3;
+      border-color: #f3f3f3;
+      color: #111;
+    }
+
+    .summary-card.featured .eyebrow,
+    .summary-card.featured p { color: #9d9d9d; }
+
+    .metric {
+      display: block;
+      margin: 7px 0 4px;
+      font-size: 24px;
+      letter-spacing: -.03em;
+    }
+
+    .summary-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    /* =========================
+       6) Sections
+    ========================== */
+    .section-block { margin-bottom: 44px; }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+
+    .section-heading h2 {
+      margin: 5px 0 0;
+      font-size: 24px;
+      letter-spacing: -.03em;
+    }
+
+    /* =========================
+       7) Projects / timelines
+    ========================== */
+    .timeline-group-heading {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin: 6px 0 14px;
+    }
+
+    .timeline-group-heading.on-hold { margin-top: 38px; }
+    .timeline-group-heading h3 { margin: 2px 0 0; font-size: 20px; }
+
+    .timeline-group-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex: 0 0 auto;
+    }
+    .timeline-group-dot.active { background: #24a36a; }
+    .timeline-group-dot.hold { background: #e0a51c; }
+
+    .project-timeline {
+      position: relative;
+      max-width: 1040px;
+      padding: 4px 0 4px 34px;
+    }
+
+    .project-timeline::before {
+      content: "";
+      position: absolute;
+      left: 10px;
+      top: 18px;
+      bottom: 18px;
+      width: 1px;
+      background: var(--accent);
+    }
+
+    .project-timeline.project-timeline-hold::before { background: #e0a51c; }
+
+    .project-timeline-item {
+      position: relative;
+      padding: 16px 0 28px 18px;
+    }
+
+    .project-timeline-marker {
+      position: absolute;
+      left: -31px;
+      top: 22px;
+      width: 15px;
+      height: 15px;
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      background: var(--bg);
+    }
+
+    .project-timeline-item.is-hold .project-timeline-marker { border-color: #e0a51c; }
+
+    .project-timeline-kicker {
+      margin-bottom: 10px;
+      color: var(--accent);
+      font: 700 10px/1.2 "Roboto Mono", monospace;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .project-timeline-item.is-hold .project-timeline-kicker { color: #b67d00; }
+
+    .project-timeline-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      max-width: 900px;
+    }
+
+    .project-timeline-title-row h3 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.2;
+      letter-spacing: -.035em;
+    }
+
+    .project-timeline-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      margin-top: 15px;
+    }
+
+    .project-timeline-meta div { min-width: 120px; }
+    .project-timeline-meta span,
+    .project-timeline-meta strong { display: block; }
+    .project-timeline-meta span {
+      color: var(--muted);
+      font: 700 10px/1.2 "Roboto Mono", monospace;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .project-timeline-meta strong { margin-top: 5px; font-size: 13px; }
+
+    .project-timeline-body > p {
+      max-width: 790px;
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .pill.success { color: var(--success); background: var(--success-soft); }
+    .pill.warning { color: var(--warning); background: var(--warning-soft); }
+    .pill.accent { color: var(--accent); background: var(--accent-soft); }
+    .pill.neutral { color: var(--muted); background: var(--surface-soft); }
+
+    .project-branches {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      max-width: 780px;
+      margin-top: 18px;
+      padding-left: 18px;
+    }
+
+    .project-branches::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: -8px;
+      bottom: 50%;
+      width: 1px;
+      background: var(--accent);
+    }
+
+    .project-branch {
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 10px;
+      background: var(--surface);
+    }
+
+    .project-branch span,
+    .project-branch small { display: block; }
+    .project-branch span {
+      color: var(--accent);
+      font: 700 10px/1.2 "Roboto Mono", monospace;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+    .project-branch strong { display: block; margin: 6px 0 4px; font-size: 14px; }
+    .project-branch small { color: var(--muted); font-size: 11px; }
+
+    /* =========================
+       8) Roadmap
+    ========================== */
+    .roadmap-board {
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .roadmap-partner-track {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .roadmap-partner-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 11px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--surface-soft);
+      color: var(--text);
+      cursor: pointer;
+      transition: .18s ease;
+    }
+
+    .roadmap-partner-chip::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--roadmap-partner-color, var(--accent));
+    }
+
+    .roadmap-partner-chip strong { font-size: 12px; }
+    .roadmap-partner-chip small { color: var(--muted); font-size: 10px; }
+    .roadmap-partner-chip.is-active {
+      border-color: var(--roadmap-partner-color, var(--accent));
+      transform: translateY(-1px);
+    }
+
+    .roadmap-timeline-scroll {
+      overflow-x: auto;
+      padding-bottom: 6px;
+    }
+
+    .roadmap-timeline {
+      min-width: 820px;
+      display: grid;
+      grid-template-columns: repeat(var(--roadmap-columns, 5), minmax(150px, 1fr));
+      gap: 12px;
+    }
+
+    .roadmap-event-card {
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      transition: .18s ease;
+    }
+
+    .roadmap-event-card:hover { transform: translateY(-2px); }
+    .roadmap-event-card.is-muted { opacity: .35; }
+    .roadmap-event-card.is-highlighted { border-color: var(--event-accent, var(--accent)); }
+
+    .roadmap-event-accent {
+      height: 4px;
+      border-radius: 999px;
+      background: var(--event-accent, var(--accent));
+    }
+
+    .roadmap-event-date {
+      color: var(--muted);
+      font: 700 10px/1.2 "Roboto Mono", monospace;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .roadmap-event-card strong { font-size: 14px; line-height: 1.35; }
+    .roadmap-event-card p { margin: 0; color: var(--muted); font-size: 12px; }
+
+    .roadmap-event-partners {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+    }
+
+    .roadmap-event-partner {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 7px;
+      border-radius: 999px;
+      background: var(--surface-soft);
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .roadmap-event-partner::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--roadmap-partner-color, var(--accent));
+    }
+
+    .empty-state {
+      padding: 18px;
+      border: 1px dashed var(--border);
+      border-radius: 14px;
+      background: var(--surface-soft);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* =========================
+       9) Partnerships
+    ========================== */
+    .partner-status-board {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .partner-status-column {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .partner-column-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 15px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+
+    .partner-column-head > div {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .confirmed .status-dot { background: #24a36a; }
+    .negotiating .status-dot { background: #e0a51c; }
+    .idea .status-dot { background: #e54b3b; }
+
+    .partner-column-count {
+      color: var(--muted);
+      font: 700 11px/1.2 "Roboto Mono", monospace;
+    }
+
+    .partner-column-list {
+      display: grid;
+      gap: 8px;
+      padding: 10px;
+    }
+
+    .partner-mini-card {
+      padding: 11px 12px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      background: var(--bg);
+    }
+
+    .partner-mini-card strong,
+    .partner-mini-card span { display: block; }
+    .partner-mini-card strong { font-size: 13px; }
+    .partner-mini-card span { margin-top: 4px; color: var(--muted); font-size: 11px; }
+
+    /* =========================
+       10) Search / footer
+    ========================== */
+    .is-search-hidden { display: none !important; }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* =========================
+       11) Responsive
+    ========================== */
+    @media (max-width: 1100px) {
+      .summary-grid { grid-template-columns: repeat(2, 1fr); }
+      .partner-status-board { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 820px) {
+      .app-shell { grid-template-columns: 1fr; }
+      .sidebar {
+        position: static;
+        height: auto;
+        padding: 16px;
+      }
+      .nav-list {
+        margin-top: 18px;
+        display: flex;
+        overflow-x: auto;
+      }
+      .nav-item { white-space: nowrap; }
+      .sidebar-note { display: none; }
+      .main-content { padding: 24px 18px 36px; }
+      .topbar { flex-direction: column; }
+      .header-actions,
+      .search-box { width: 100%; }
+      .project-branches { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 620px) {
+      .summary-grid { grid-template-columns: 1fr; }
+      .project-timeline { padding-left: 28px; }
+      .project-timeline::before { left: 8px; }
+      .project-timeline-marker { left: -26px; }
+      .project-timeline-title-row {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+      .project-timeline-meta { gap: 16px; }
+      .footer { flex-direction: column; }
+    }
   </style>
 </head>
+
 <body>
   <div class="app-shell">
     <aside class="sidebar">
       <div class="brand">
         <div class="brand-mark">L</div>
-        <div><strong>LANGHOOD</strong><span>Project Hub</span></div>
+        <div>
+          <strong>LANGHOOD</strong>
+          <span>Project Hub</span>
+        </div>
       </div>
 
       <nav class="nav-list">
@@ -202,7 +732,7 @@ body.dark .project-timeline-marker{background:var(--bg)}
         <div class="header-actions">
           <label class="search-box">
             <span>⌕</span>
-            <input type="search" placeholder="Search dashboard" aria-label="Search dashboard">
+            <input id="dashboardSearch" type="search" placeholder="Search dashboard" aria-label="Search dashboard" />
           </label>
           <button class="icon-button" id="darkModeButton" type="button">Dark</button>
         </div>
@@ -212,11 +742,28 @@ body.dark .project-timeline-marker{background:var(--bg)}
 
       <section class="section-block" id="projects">
         <div class="section-heading">
-          <div><span class="eyebrow">Portfolio · Timeline</span><h2>Projects & Timeline</h2></div>
+          <div>
+            <span class="eyebrow">Portfolio · Timeline</span>
+            <h2>Projects & Timeline</h2>
+          </div>
         </div>
-        <div class="timeline-group-heading"><span class="timeline-group-dot active"></span><div><span class="eyebrow">IN EXECUTION</span><h3>Active</h3></div></div>
+
+        <div class="timeline-group-heading">
+          <span class="timeline-group-dot active"></span>
+          <div>
+            <span class="eyebrow">In execution</span>
+            <h3>Active</h3>
+          </div>
+        </div>
         <div id="activeProjectTimeline" class="project-timeline"></div>
-        <div class="timeline-group-heading on-hold"><span class="timeline-group-dot hold"></span><div><span class="eyebrow">PAUSED / FUTURE</span><h3>On Hold</h3></div></div>
+
+        <div class="timeline-group-heading on-hold">
+          <span class="timeline-group-dot hold"></span>
+          <div>
+            <span class="eyebrow">Paused / future</span>
+            <h3>On Hold</h3>
+          </div>
+        </div>
         <div id="onHoldProjectTimeline" class="project-timeline project-timeline-hold"></div>
       </section>
 
@@ -229,738 +776,517 @@ body.dark .project-timeline-marker{background:var(--bg)}
         </div>
 
         <div class="roadmap-board">
-          <div class="roadmap-partner-track" id="roadmapPartnerTrack" role="list" aria-label="Roadmap partners"></div>
+          <div class="roadmap-partner-track" id="roadmapPartnerTrack"></div>
           <div class="roadmap-timeline-scroll">
-            <div class="roadmap-timeline" id="roadmapTimeline" aria-label="Roadmap events"></div>
+            <div class="roadmap-timeline" id="roadmapTimeline"></div>
           </div>
         </div>
       </section>
 
       <section class="section-block" id="partnerships">
         <div class="section-heading">
-          <div><span class="eyebrow">CRM</span><h2>Partnerships</h2></div>
+          <div>
+            <span class="eyebrow">CRM</span>
+            <h2>Partnerships</h2>
+          </div>
         </div>
-        <div class="partner-list" id="partnerList"></div>
+        <div id="partnerList"></div>
       </section>
 
-      <section class="section-block" id="data-content">
-        <div class="section-heading">
-          <div><span class="eyebrow">Data</span><h2>JSON dashboard</h2></div>
-        </div>
-        <div id="content" class="dashboard-data-grid"></div>
-      </section>
-
-      <footer class="footer"><span>LANGHOOD Project Hub</span><span id="lastUpdated">Last updated today</span></footer>
+      <footer class="footer">
+        <span>LANGHOOD Project Hub</span>
+        <span id="lastUpdated">Last updated today</span>
+      </footer>
     </main>
   </div>
 
-  <script id="dashboardData" type="application/json">
-{
-  "team": [
-    "LANGHOOD CORE TEAM"
-  ],
-  "objective": "LANGHOOD DASHBOARD",
-  "projects": [
-    
-    {
-      "name": "Vinyl Events With Sterik",
-      "status": "Planning",
-      "group": "Active",
-      "description": "Standalone experiences combining sport, culture and social connection.",
-      "currentEvent": "Workshop đĩa than",
-      "nextEvent": "2026-08-30",
-      "partner": "Sterik Cafe and Urban Sketchers & District M"
-    },
-    {
-      "name": "Training Program with SS (Global City)",
-      "status": "Planning",
-      "group": "Active",
-      "description": "A structured training program with SpaceSpeakers.",
-      "currentEvent": "Planning",
-      "nextEvent": "TBD",
-      "partner": "SpaceSpeakers"
-    },
-    {
-      "name": "SS Music Run",
-      "status": "On Hold",
-      "group": "On Hold",
-      "description": "A music-driven run planned for September with sponsor integration.",
-      "currentEvent": "Concept Planning",
-      "nextEvent": "Tháng 9, chưa chốt ngày",
-      "partner": "SpaceSpeakers"
-    },
-    {
-      "name": "Về Làng",
-      "status": "On Hold",
-      "group": "On Hold",
-      "description": "A cultural series focused on stories, identity and shared experiences.",
-      "currentEvent": "Về Làng #1",
-      "nextEvent": "To be updated",
-      "location": "TBD: Lâm Đồng / Làng Chài",
-      "partner": "Stretch.vn, PACE Training, ONWAY"
-    },
-    {
-      "name": "ROAD TO REDLINE",
-      "status": "Planning",
-      "group": "Active",
-      "description": "Promoting REDLINE through two key Rumble events.",
-      "currentEvent": "Rumble Event Series",
-      "nextEvent": "2026-08-23",
-      "partner": "REDLINE",
-      "branches": [
-        {"date":"2026-08-23","name":"Rumble × ActiveFox","partner":"ActiveFox × REDLINE"},
-        {"date":"2026-09-13","name":"Rumble × Under Armour","partner":"Under Armour × REDLINE"}
-      ]
-    }
-  ],
-  "partners": [
-    {
-      "name": "PACE Training",
-      "project": "Training Program",
-      "status": "Confirmed"
-    },
-    {
-      "name": "Afterglow",
-      "project": "Beer Run",
-      "status": "Confirmed"
-    },
-    {
-      "name": "Revive",
-      "project": "Về Làng",
-      "status": "Confirmed"
-    },
-    {
-      "name": "Stretch.vn",
-      "project": "Về Làng",
-      "status": "Confirmed"
-    },
-    {
-      "name": "ONWAY",
-      "project": "Về Làng",
-      "status": "Negotiating"
-    },
-    {
-      "name": "Mana Hydration",
-      "project": "Events",
-      "status": "Idea"
-    },
-    {
-      "name": "REDLINE",
-      "project": "ROAD TO REDLINE",
-      "status": "Confirmed"
-    },
-    {
-      "name": "Bơnana",
-      "project": "Events - Vẽ Tranh",
-      "status": "Idea"
-    },
-    {
-      "name": "Under Armour",
-      "project": "TBD",
-      "status": "Idea"
-    },
-    {
-      "name": "SpaceSpeakers",
-      "project": "Training Program, SS Music Run",
-      "status": "Negotiating"  
-    }
-  ],
-  "timeline": [
-    {
-      "date": "To be updated",
-      "title": "Về Làng",
-      "description": "Culture event — location TBD: Lâm Đồng / Làng Chài",
-      "location": "to be updated"
-    },
-    {
-      "date": "2026-08-19",
-      "title": "Training SpaceSpeakers",
-      "description": "Mid-week training session"
-    },
-    {
-      "date": "2026-08-23",
-      "title": "REDLINE 23.08 Rumble Events",
-      "description": "Partner: ActiveFox × REDLINE"
-    },
-    {
-      "date":"2026-08-30",
-      "title":"Workshop đĩa than",
-      "description":"Partner: Sterik Cafe and Urban Sketchers"
-    }
-    ,{
-      "date": "2026-09-13",
-      "title": "REDLINE x Under Armour",
-      "description": "Partner: Under Armour × REDLINE"
-    },
-    {
-      "date": "2026-09-20",
-      "title": "SS Music Run",
-      "description": "Planning stage"
-    }
-  ],
-  "tasks": [
-    {
-      "title": "Double-check Về Làng Date & Location",
-      "project": "Về Làng",
-      "priority": "High",
-      "due": "2026-08-30"
-    },
-    {
-      "title": "Bán vé và launch",
-      "project": "Về Làng",
-      "priority": "Medium",
-      "due": "2026-08-05"
-    },
-    {
-      "title": "Proposal follow-up",
-      "project": "SS Music Run",
-      "priority": "High",
-      "due": "2026-08-08"
-    },
-    {
-      "title": "Revive contract và deliver quyền lợi truyền thông",
-      "project": "Revive",
-      "priority": "Medium",
-      "due": "2026-08-08"
-    }
-  ],
-  "roadmap": {
-    "partners": [
-      {
-        "id": "activefox",
-        "name": "ActiveFox",
-        "role": "Training Partner",
-        "color": "#F26A2E"
-      },
-      {
-        "id": "redline",
-        "name": "REDLINE",
-        "role": "Prize Sponsor & Media Partner",
-        "color": "#E83224"
-      },
-      {
-        "id": "pace",
-        "name": "PACE Training",
-        "role": "Training Platform Partner",
-        "color": "#2FAF7A"
-      },
-      {
-        "id": "revive",
-        "name": "Revive",
-        "role": "Community Partner",
-        "color": "#7A5CFF"
-      },
-      {
-        "id": "stretch",
-        "name": "Stretch.vn",
-        "role": "Recovery Partner",
-        "color": "#39A1C8"
-      },
-      {
-        "id": "onway",
-        "name": "ONWAY",
-        "role": "Strategic Partner",
-        "color": "#9A67EA"
-      },
-      {
-        "id": "under-armour",
-        "name": "Under Armour",
-        "role": "Sponsor Partner",
-        "color": "#1C6FD8"
-      },
-      {
-        "id": "spacespeakers",
-        "name": "SpaceSpeakers",
-        "role": "Communications Partner",
-        "color": "#F0A832"
-      }
-    ],
-    "events": [
-      {
-        "id": "ve-lang-01",
-        "date": "2026-10 (TBD)",
-        "title": "Về Làng #1",
-        "type": "Về Làng Event",
-        "location": "TBD: Lâm Đồng / Làng Chài",
-        "partnerIds": [
-          "revive",
-          "stretch",
-          "pace"
-        ]
-      },
-      {
-        "id": "spacespeakers-01",
-        "date": "2026-08-19",
-        "title": "Training SpaceSpeakers",
-        "type": "Training",
-        "partnerIds": [
-          "pace",
-          "spacespeakers"
-        ]
-      },
-      {
-        "id": "redline-rumble-01",
-        "date": "2026-08-23",
-        "title": "REDLINE Program",
-        "type": "Event",
-        "partnerIds": [
-          "activefox",
-          "redline"
-        ]
-      },
-      {
-        "id": "under-armour-redline-01",
-        "date": "2026-09-13",
-        "title": "REDLINE x Under Armour",
-        "type": "Collaboration",
-        "partnerIds": [
-          "under-armour",
-          "redline"
-        ]
-      },
-      {
-        "id": "ss-music-run-01",
-        "date": "2026-09-20",
-        "title": "SS Music Run",
-        "type": "Launch",
-        "partnerIds": [
-          "spacespeakers"
-        ]
-      }
-    ]
-  }
-}
-  </script>
   <script>
-async function loadDashboard() {
-  try {
-    const data = JSON.parse(document.getElementById('dashboardData').textContent);
+    /* ==========================================================
+       DATA
+       Edit only this object for most dashboard updates.
+    ========================================================== */
+    const DASHBOARD_DATA = {
+      team: ["LANGHOOD CORE TEAM"],
+      objective: "LANGHOOD DASHBOARD",
+      description: "Everything the team needs to track projects, events and partnerships.",
 
-    renderHeader(data);
-    renderSummary(data);
-    renderProjectTimeline(data);
-    renderRoadmap(data);
-    renderPartners(data);
-    renderTasks(data);
-    attachUiHandlers();
-    setLastUpdated();
-  } catch (error) {
-    console.error('Failed to load dashboard data:', error);
-  }
-}
+      projects: [
+        {
+          name: "Vinyl Events With Sterik",
+          status: "Planning",
+          group: "Active",
+          description: "Standalone experiences combining sport, culture and social connection.",
+          currentEvent: "Workshop đĩa than",
+          nextEvent: "2026-08-30",
+          partner: "Sterik Cafe and Urban Sketchers & District M"
+        },
+        {
+          name: "Training Program with SS (Global City)",
+          status: "Planning",
+          group: "Active",
+          description: "A structured training program with SpaceSpeakers.",
+          currentEvent: "Planning",
+          nextEvent: "TBD",
+          partner: "SpaceSpeakers"
+        },
+        {
+          name: "ROAD TO REDLINE",
+          status: "Planning",
+          group: "Active",
+          description: "Promoting REDLINE through two key Rumble events.",
+          currentEvent: "Rumble Event Series",
+          nextEvent: "2026-08-23",
+          partner: "REDLINE",
+          branches: [
+            { date: "2026-08-23", name: "Rumble × ActiveFox", partner: "ActiveFox × REDLINE" },
+            { date: "2026-09-13", name: "Rumble × Under Armour", partner: "Under Armour × REDLINE" }
+          ]
+        },
+        {
+          name: "SS Music Run",
+          status: "On Hold",
+          group: "On Hold",
+          description: "A music-driven run planned for September with sponsor integration.",
+          currentEvent: "Concept Planning",
+          nextEvent: "September · TBD",
+          partner: "SpaceSpeakers"
+        },
+        {
+          name: "Về Làng",
+          status: "On Hold",
+          group: "On Hold",
+          description: "A cultural series focused on stories, identity and shared experiences.",
+          currentEvent: "Về Làng #1",
+          nextEvent: "TBD",
+          partner: "Stretch.vn, PACE Training, ONWAY"
+        }
+      ],
 
-function renderHeader(data) {
-  const teamList = document.getElementById('teamList');
-  const dashboardTitle = document.getElementById('dashboardTitle');
-  const dashboardDescription = document.getElementById('dashboardDescription');
+      partners: [
+        { name: "PACE Training", project: "Training Program", status: "Confirmed" },
+        { name: "Afterglow", project: "Beer Run", status: "Confirmed" },
+        { name: "Revive", project: "Về Làng", status: "Confirmed" },
+        { name: "Stretch.vn", project: "Về Làng", status: "Confirmed" },
+        { name: "REDLINE", project: "ROAD TO REDLINE", status: "Confirmed" },
+        { name: "ONWAY", project: "Về Làng", status: "Negotiating" },
+        { name: "SpaceSpeakers", project: "Training Program, SS Music Run", status: "Negotiating" },
+        { name: "Mana Hydration", project: "Events", status: "Idea" },
+        { name: "Bơnana", project: "Events - Vẽ Tranh", status: "Idea" },
+        { name: "Under Armour", project: "ROAD TO REDLINE", status: "Idea" },
+        { name: "ActiveFox", project: "ROAD TO REDLINE", status: "Confirmed" },
+        { name: "Sterik Cafe", project: "Vinyl Events", status: "Confirmed" },
+        { name: "Mizumi", project: "Events TBD", status: "Negotiating" }
+      ],
 
-  if (teamList && Array.isArray(data.team)) {
-    teamList.textContent = data.team.join(' · ');
-  }
+      roadmap: {
+        partners: [
+          { id: "activefox", name: "ActiveFox", role: "Training Partner", color: "#F26A2E" },
+          { id: "redline", name: "REDLINE", role: "Prize Sponsor & Media Partner", color: "#E83224" },
+          { id: "pace", name: "PACE Training", role: "Training Platform Partner", color: "#2FAF7A" },
+          { id: "revive", name: "Revive", role: "Community Partner", color: "#7A5CFF" },
+          { id: "stretch", name: "Stretch.vn", role: "Recovery Partner", color: "#39A1C8" },
+          { id: "onway", name: "ONWAY", role: "Strategic Partner", color: "#9A67EA" },
+          { id: "under-armour", name: "Under Armour", role: "Sponsor Partner", color: "#1C6FD8" },
+          { id: "spacespeakers", name: "SpaceSpeakers", role: "Communications Partner", color: "#F0A832" },
+          { id: "sterik", name: "Sterik Cafe", role: "Event Partner", color: "#FF0000" }
+        ],
 
-  if (dashboardTitle) {
-    dashboardTitle.textContent = data.objective || 'Project Dashboard';
-  }
+        events: [
+          {
+            id: "spacespeakers-01",
+            date: "2026-08-19",
+            dateLabel: "19 Aug",
+            title: "Training SpaceSpeakers",
+            type: "Training",
+            partnerIds: ["pace", "spacespeakers"]
+          },
+          {
+            id: "redline-rumble-01",
+            date: "2026-08-23",
+            dateLabel: "23 Aug",
+            title: "REDLINE Program",
+            type: "Event",
+            partnerIds: ["activefox", "redline"]
+          },
+          {
+            id: "vinyl",
+            date: "2026-08-30",
+            dateLabel: "30 Aug",
+            title: "Vinyl Event",
+            type: "Event",
+            partnerIds: ["sterik"]
+          },
+          {
+            id: "under-armour-redline-01",
+            date: "2026-09-13",
+            dateLabel: "13 Sep",
+            title: "REDLINE × Under Armour",
+            type: "Collaboration",
+            partnerIds: ["under-armour", "redline"]
+          },
+          {
+            id: "ss-music-run-01",
+            date: "2026-09-20",
+            dateLabel: "Sep · TBD",
+            title: "SS Music Run",
+            type: "Launch",
+            partnerIds: ["spacespeakers"]
+          },
+          {
+            id: "ve-lang-01",
+            date: "2026-10-01",
+            dateLabel: "Oct · TBD",
+            title: "Về Làng #1",
+            type: "Về Làng Event",
+            partnerIds: ["revive", "stretch", "pace", "onway"]
+          }
+        ]
+      }
+    };
 
-  if (dashboardDescription) {
-    dashboardDescription.textContent = data.description || 'Everything the team needs to track projects, events and partnerships.';
-  }
-}
+    /* ==========================================================
+       APP
+    ========================================================== */
+    document.addEventListener("DOMContentLoaded", initDashboard);
 
-function renderSummary(data) {
-  const summaryGrid = document.getElementById('summaryGrid');
-  if (!summaryGrid) return;
-
-  const activeProjects = Array.isArray(data.projects)
-    ? data.projects.filter(project => !['on hold','upcoming'].includes(project.group?.toString().toLowerCase()))
-    : [];
-  const backlogProjects = Array.isArray(data.projects)
-    ? data.projects.filter(project => ['on hold','upcoming'].includes(project.group?.toString().toLowerCase()))
-    : [];
-
-  const partnerCount = Array.isArray(data.partners) ? data.partners.length : 0;
-  const taskCount = Array.isArray(data.tasks) ? data.tasks.length : 0;
-  const overallStatus = data.summary?.status || deriveOverallStatus(activeProjects, backlogProjects, taskCount);
-  const description = data.summary?.description || 'Core activities are moving forward with no critical blockers.';
-
-  const cards = [
-    {
-      title: 'Overall Status',
-      value: overallStatus,
-      description,
-      variant: 'featured'
-    },
-    {
-      title: 'Active Projects',
-      value: String(activeProjects.length),
-      description: 'Projects currently in execution.'
-    },
-    {
-      title: 'On Hold',
-      value: String(backlogProjects.length),
-      description: 'Paused or awaiting the next go-ahead.'
-    },
-    {
-      title: 'Partnership Deals',
-      value: String(partnerCount),
-      description: 'Active, confirmed or in discussion.'
+    function initDashboard() {
+      renderHeader(DASHBOARD_DATA);
+      renderSummary(DASHBOARD_DATA);
+      renderProjectTimelines(DASHBOARD_DATA);
+      renderRoadmap(DASHBOARD_DATA);
+      renderPartners(DASHBOARD_DATA);
+      setupDarkMode();
+      setupSearch();
+      setLastUpdated();
     }
-  ];
 
-  summaryGrid.innerHTML = cards.map(card => `
-    <article class="summary-card ${card.variant || ''}">
-      <span class="eyebrow">${escapeHtml(card.title)}</span>
-      <strong class="metric">${escapeHtml(card.value)}</strong>
-      <p>${escapeHtml(card.description)}</p>
-    </article>`).join('');
-}
+    /* ---------- Header ---------- */
+    function renderHeader(data) {
+      setText("teamList", data.team?.join(" · ") || "");
+      setText("dashboardTitle", data.objective || "Project Dashboard");
+      setText("dashboardDescription", data.description || "");
+    }
 
-function deriveOverallStatus(activeProjects, backlogProjects, taskCount) {
-  if (!activeProjects.length && backlogProjects.length) return 'Planning';
-  if (taskCount > 10) return 'Busy';
-  return activeProjects.length ? 'On Track' : 'Starting';
-}
+    /* ---------- Summary ---------- */
+    function renderSummary(data) {
+      const activeProjects = data.projects.filter(p => normalize(p.group) === "active");
+      const onHoldProjects = data.projects.filter(p => normalize(p.group) === "on hold");
 
-function renderProjectTimeline(data) {
-  const activeContainer = document.getElementById('activeProjectTimeline');
-  const holdContainer = document.getElementById('onHoldProjectTimeline');
-  if (!activeContainer || !holdContainer) return;
-  const projects = Array.isArray(data.projects) ? data.projects : [];
-  const timeline = Array.isArray(data.timeline) ? data.timeline : [];
-  const timelineByTitle = new Map(timeline.map(item => [String(item.title || '').toLowerCase(), item]));
+      const cards = [
+        {
+          title: "Overall Status",
+          value: activeProjects.length ? "On Track" : "Planning",
+          description: "Core activities are moving forward with no critical blockers.",
+          featured: true
+        },
+        {
+          title: "Active Projects",
+          value: activeProjects.length,
+          description: "Projects currently in execution."
+        },
+        {
+          title: "On Hold",
+          value: onHoldProjects.length,
+          description: "Paused or awaiting the next go-ahead."
+        },
+        {
+          title: "Partnership Deals",
+          value: data.partners.length,
+          description: "Confirmed, negotiating or idea stage."
+        }
+      ];
 
-  const renderItems = (items, isHold = false) => items.map((project, index) => {
-    const matchedTimeline = timelineByTitle.get(String(project.name || '').toLowerCase());
-    const date = matchedTimeline?.date || project.nextEvent || 'TBD';
-    const description = matchedTimeline?.description || project.description || '';
-    const statusClass = isHold ? 'warning' : getPillClass(project.status, project.group);
-    const branches = Array.isArray(project.branches) && project.branches.length ? `
-      <div class="project-branches">
-        ${project.branches.map(branch => `<div class="project-branch"><span>${escapeHtml(formatDate(branch.date))}</span><strong>${escapeHtml(branch.name)}</strong><small>${escapeHtml(branch.partner || '')}</small></div>`).join('')}
-      </div>` : '';
-    return `<article class="project-timeline-item ${isHold ? 'is-hold' : ''}">
-      <div class="project-timeline-marker" aria-hidden="true"></div>
-      <div class="project-timeline-kicker">${String(index + 1).padStart(2, '0')} — ${escapeHtml(isHold ? 'ON HOLD' : 'ACTIVE')}</div>
-      <div class="project-timeline-body">
-        <div class="project-timeline-title-row"><h3>${escapeHtml(project.name)}</h3><span class="pill ${statusClass}">${escapeHtml(project.status || 'Unknown')}</span></div>
-        <div class="project-timeline-meta">
-          <div><span>Timeline</span><strong>${escapeHtml(formatDate(date))}</strong></div>
-          <div><span>Current</span><strong>${escapeHtml(project.currentEvent || 'TBD')}</strong></div>
-          <div><span>Partner</span><strong>${escapeHtml(project.partner || 'TBD')}</strong></div>
-        </div>
-        <p>${escapeHtml(description)}</p>${branches}
-      </div>
-    </article>`;
-  }).join('');
+      document.getElementById("summaryGrid").innerHTML = cards.map(card => `
+        <article class="summary-card ${card.featured ? "featured" : ""}">
+          <span class="eyebrow">${escapeHtml(card.title)}</span>
+          <strong class="metric">${escapeHtml(card.value)}</strong>
+          <p>${escapeHtml(card.description)}</p>
+        </article>
+      `).join("");
+    }
 
-  const active = projects.filter(p => !['on hold','upcoming'].includes(String(p.group || '').toLowerCase()));
-  const hold = projects.filter(p => ['on hold','upcoming'].includes(String(p.group || '').toLowerCase()));
-  activeContainer.innerHTML = renderItems(active) || '<div class="roadmap-event-empty">No active projects.</div>';
-  holdContainer.innerHTML = renderItems(hold, true) || '<div class="roadmap-event-empty">No projects on hold.</div>';
-}
+    /* ---------- Projects ---------- */
+    function renderProjectTimelines(data) {
+      const active = data.projects.filter(p => normalize(p.group) === "active");
+      const hold = data.projects.filter(p => normalize(p.group) === "on hold");
 
-function renderRoadmap(data) {
-  const partnerTrack = document.getElementById('roadmapPartnerTrack');
-  const timeline = document.getElementById('roadmapTimeline');
+      renderProjectTimelineList("activeProjectTimeline", active, false);
+      renderProjectTimelineList("onHoldProjectTimeline", hold, true);
+    }
 
-  if (!partnerTrack || !timeline) return;
+    function renderProjectTimelineList(containerId, projects, isHold) {
+      const container = document.getElementById(containerId);
 
-  const roadmapData = data?.roadmap;
-  if (!roadmapData || !Array.isArray(roadmapData.partners) || !Array.isArray(roadmapData.events)) {
-    partnerTrack.innerHTML = '<div class="roadmap-event-empty">Roadmap data is not available yet.</div>';
-    timeline.innerHTML = '<div class="roadmap-event-empty">Add roadmap partners and events in data.json to populate this timeline.</div>';
-    return;
-  }
+      if (!projects.length) {
+        container.innerHTML = '<div class="empty-state">No projects in this group.</div>';
+        return;
+      }
 
-  const partners = roadmapData.partners.filter(partner => partner && partner.id);
-  const events = roadmapData.events
-    .map(event => ({
-      ...event,
-      partnerIds: normalizeRoadmapPartnerIds(event.partnerIds),
-      parsedDate: parseRoadmapDate(event.date)
-    }))
-    .filter(event => event.parsedDate && !/weekly funrun/i.test(event.title || '') && !/weekly funrun/i.test(event.id || ''))
-    .sort((a, b) => a.parsedDate - b.parsedDate);
+      container.innerHTML = projects.map((project, index) => {
+        const branches = Array.isArray(project.branches) && project.branches.length
+          ? `
+            <div class="project-branches">
+              ${project.branches.map(branch => `
+                <div class="project-branch">
+                  <span>${escapeHtml(formatDate(branch.date))}</span>
+                  <strong>${escapeHtml(branch.name)}</strong>
+                  <small>${escapeHtml(branch.partner || "")}</small>
+                </div>
+              `).join("")}
+            </div>
+          `
+          : "";
 
-  renderRoadmapPartners(partners, events, partnerTrack);
-  renderRoadmapEvents(partners, events, timeline);
-}
+        return `
+          <article class="project-timeline-item ${isHold ? "is-hold" : ""}" data-searchable>
+            <div class="project-timeline-marker"></div>
 
-function renderRoadmapPartners(partners, events, container) {
-  if (!partners.length) {
-    container.innerHTML = '<div class="roadmap-event-empty">No roadmap partners available.</div>';
-    return;
-  }
+            <div class="project-timeline-kicker">
+              ${String(index + 1).padStart(2, "0")} — ${isHold ? "ON HOLD" : "ACTIVE"}
+            </div>
 
-  const partnerMap = getRoadmapPartnerMap(partners);
-  const markup = partners.map(partner => {
-    const partnerId = normalizeRoadmapPartnerId(partner.id);
-    const linkedCount = events.filter(event => event.partnerIds.includes(partnerId)).length;
-    return `
-      <button class="roadmap-partner-chip" type="button" data-partner-id="${escapeHtml(partnerId)}" aria-label="Show events for ${escapeHtml(partner.name)}">
-        <span class="roadmap-partner-meta">
-          <strong>${escapeHtml(partner.name)}</strong>
-          <span>${escapeHtml(partner.role || 'Partner')}</span>
-        </span>
-        <span class="roadmap-partner-count">${linkedCount}</span>
-      </button>`;
-  }).join('');
+            <div class="project-timeline-body">
+              <div class="project-timeline-title-row">
+                <h3>${escapeHtml(project.name)}</h3>
+                <span class="pill ${isHold ? "warning" : "success"}">${escapeHtml(project.status)}</span>
+              </div>
 
-  container.innerHTML = markup;
+              <div class="project-timeline-meta">
+                <div>
+                  <span>Timeline</span>
+                  <strong>${escapeHtml(formatDate(project.nextEvent))}</strong>
+                </div>
+                <div>
+                  <span>Current</span>
+                  <strong>${escapeHtml(project.currentEvent || "TBD")}</strong>
+                </div>
+                <div>
+                  <span>Partner</span>
+                  <strong>${escapeHtml(project.partner || "TBD")}</strong>
+                </div>
+              </div>
 
-  container.querySelectorAll('.roadmap-partner-chip').forEach((chip) => {
-    const partner = partnerMap[chip.dataset.partnerId];
-    if (!partner) return;
-    chip.style.setProperty('--roadmap-partner-color', partner.color || '#fa2d1a');
-    chip.addEventListener('click', () => {
-      const isActive = chip.classList.toggle('is-active');
-      const selectedId = chip.dataset.partnerId;
-      const timeline = document.getElementById('roadmapTimeline');
-      if (!timeline) return;
-      timeline.querySelectorAll('.roadmap-event-card').forEach((card) => {
-        const linked = card.dataset.partnerIds.split(' ').includes(selectedId);
-        card.classList.toggle('is-highlighted', isActive && linked);
-        card.classList.toggle('is-muted', isActive && !linked);
+              <p>${escapeHtml(project.description || "")}</p>
+              ${branches}
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    /* ---------- Roadmap ---------- */
+    function renderRoadmap(data) {
+      const roadmap = data.roadmap || { partners: [], events: [] };
+      const partnerMap = Object.fromEntries(
+        roadmap.partners.map(partner => [normalize(partner.id), partner])
+      );
+
+      renderRoadmapPartnerChips(roadmap.partners, roadmap.events);
+      renderRoadmapEventCards(roadmap.events, partnerMap);
+    }
+
+    function renderRoadmapPartnerChips(partners, events) {
+      const container = document.getElementById("roadmapPartnerTrack");
+
+      container.innerHTML = partners.map(partner => {
+        const id = normalize(partner.id);
+        const count = events.filter(event =>
+          (event.partnerIds || []).map(normalize).includes(id)
+        ).length;
+
+        return `
+          <button
+            class="roadmap-partner-chip"
+            type="button"
+            data-partner-filter="${escapeHtml(id)}"
+            style="--roadmap-partner-color:${escapeHtml(partner.color || "#fa2d1a")}"
+          >
+            <strong>${escapeHtml(partner.name)}</strong>
+            <small>${count}</small>
+          </button>
+        `;
+      }).join("");
+
+      container.querySelectorAll("[data-partner-filter]").forEach(button => {
+        button.addEventListener("click", () => {
+          const wasActive = button.classList.contains("is-active");
+
+          container.querySelectorAll(".roadmap-partner-chip")
+            .forEach(chip => chip.classList.remove("is-active"));
+
+          if (wasActive) {
+            filterRoadmapCards("");
+          } else {
+            button.classList.add("is-active");
+            filterRoadmapCards(button.dataset.partnerFilter);
+          }
+        });
       });
-    });
-  });
-}
+    }
 
-function renderRoadmapEvents(partners, events, container) {
-  if (!events.length) {
-    container.innerHTML = '<div class="roadmap-event-empty">No roadmap events available.</div>';
-    return;
-  }
+    function renderRoadmapEventCards(events, partnerMap) {
+      const container = document.getElementById("roadmapTimeline");
 
-  const partnerMap = getRoadmapPartnerMap(partners);
-  const startDate = events[0].parsedDate;
-  const endDate = events[events.length - 1].parsedDate;
-  const monthLabels = generateMonthLabels(startDate, endDate);
+      const sorted = [...events].sort((a, b) =>
+        new Date(a.date) - new Date(b.date)
+      );
 
-  const railMarkup = '<div class="roadmap-timeline-rail"></div>';
-  const eventMarkup = events.map((event, index) => {
-    const position = calculateEventPosition(event.parsedDate, startDate, endDate);
-    const isMonthOnly = ['ve-lang-01', 'ss-music-run-01'].includes(event.id);
-    const dateLabel = (isMonthOnly && event.parsedDate)
-      ? event.parsedDate.toLocaleDateString('en-GB', { month: 'short' })
-      : formatRoadmapDate(event.parsedDate);
-    const partnerMarkers = renderEventPartnerMarkers(event, partnerMap);
-    return `
-      <article class="roadmap-event-card" data-partner-ids="${escapeHtml(event.partnerIds.join(' '))}">
-        <div class="roadmap-event-accent"></div>
-        <span class="roadmap-event-date">${escapeHtml(dateLabel)}</span>
-        <strong>${escapeHtml(event.title)}</strong>
-        <p>${escapeHtml(event.type || 'Event')}</p>
-        <div class="roadmap-event-partners">${partnerMarkers}</div>
-      </article>`;
-  }).join('');
+      container.style.setProperty("--roadmap-columns", Math.max(sorted.length, 4));
 
-  container.innerHTML = `
-    <div class="roadmap-month-labels">${monthLabels.map(item => `<div class="roadmap-month-label">${escapeHtml(item)}</div>`).join('')}</div>
-    <div class="roadmap-timeline-shell">
-      ${railMarkup}
-      ${eventMarkup}
-    </div>`;
+      container.innerHTML = sorted.map(event => {
+        const partnerIds = (event.partnerIds || []).map(normalize);
+        const accent = partnerIds
+          .map(id => partnerMap[id]?.color)
+          .find(Boolean) || "#fa2d1a";
 
-  container.querySelectorAll('.roadmap-event-card').forEach((card, index) => {
-    const event = events[index];
-    const lane = index % 2 === 0 ? 0 : 1;
-    const position = calculateEventPosition(event.parsedDate, startDate, endDate);
-    const accentColor = getEventAccentColor(event, partnerMap);
-    card.style.setProperty('--event-left', `${position}%`);
-    card.style.setProperty('--event-top', lane === 0 ? '24px' : '104px');
-    card.style.setProperty('--event-accent', accentColor);
-    card.querySelectorAll('.roadmap-event-partner').forEach(marker => {
-      const partnerId = marker.dataset.partnerId;
-      const partner = partnerMap[partnerId];
-      if (partner) {
-        marker.style.setProperty('--roadmap-partner-color', partner.color || '#fa2d1a');
-      }
-    });
-  });
-}
+        const partnerTags = partnerIds.map(id => {
+          const partner = partnerMap[id];
+          const name = partner?.name || id;
+          const color = partner?.color || "#fa2d1a";
 
-function getRoadmapPartnerMap(partners) {
-  return partners.reduce((accumulator, partner) => {
-    const id = normalizeRoadmapPartnerId(partner.id);
-    if (id) accumulator[id] = partner;
-    return accumulator;
-  }, {});
-}
+          return `
+            <span
+              class="roadmap-event-partner"
+              style="--roadmap-partner-color:${escapeHtml(color)}"
+            >
+              ${escapeHtml(name)}
+            </span>
+          `;
+        }).join("");
 
-function renderEventPartnerMarkers(event, partnerMap) {
-  const partnerIds = normalizeRoadmapPartnerIds(event.partnerIds);
-  if (!partnerIds.length) {
-    return '<span class="roadmap-event-partner" data-partner-id=""><span>Unassigned</span></span>';
-  }
+        return `
+          <article
+            class="roadmap-event-card"
+            data-partner-ids="${escapeHtml(partnerIds.join(" "))}"
+            data-searchable
+            style="--event-accent:${escapeHtml(accent)}"
+          >
+            <div class="roadmap-event-accent"></div>
+            <span class="roadmap-event-date">${escapeHtml(event.dateLabel || formatDate(event.date))}</span>
+            <strong>${escapeHtml(event.title)}</strong>
+            <p>${escapeHtml(event.type || "Event")}</p>
+            <div class="roadmap-event-partners">${partnerTags}</div>
+          </article>
+        `;
+      }).join("");
+    }
 
-  return partnerIds
-    .map((partnerId) => {
-      const partner = partnerMap[partnerId];
-      if (!partner) {
-        return `<span class="roadmap-event-partner" data-partner-id="${escapeHtml(partnerId)}">${escapeHtml(partnerId.replace(/[-_]/g, ' '))}</span>`;
-      }
-      return `<span class="roadmap-event-partner" data-partner-id="${escapeHtml(partnerId)}">${escapeHtml(partner.name)}</span>`;
-    })
-    .filter(Boolean)
-    .join('');
-}
+    function filterRoadmapCards(partnerId) {
+      document.querySelectorAll(".roadmap-event-card").forEach(card => {
+        const ids = (card.dataset.partnerIds || "").split(" ");
+        const matches = !partnerId || ids.includes(partnerId);
 
-function generateMonthLabels(startDate, endDate) {
-  const labels = [];
-  const cursor = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
-  const endCursor = new Date(endDate.getFullYear(), endDate.getMonth(), 1);
-  while (cursor <= endCursor) {
-    labels.push(cursor.toLocaleDateString('en-GB', { month: 'short' }));
-    cursor.setMonth(cursor.getMonth() + 1);
-  }
-  return labels;
-}
+        card.classList.toggle("is-highlighted", Boolean(partnerId) && matches);
+        card.classList.toggle("is-muted", Boolean(partnerId) && !matches);
+      });
+    }
 
-function calculateEventPosition(date, startDate, endDate) {
-  const totalDays = Math.max(1, (endDate - startDate) / (1000 * 60 * 60 * 24));
-  const offsetDays = Math.max(0, (date - startDate) / (1000 * 60 * 60 * 24));
-  const ratio = offsetDays / totalDays;
-  return Math.min(88, Math.max(12, ratio * 100));
-}
+    /* ---------- Partnerships ---------- */
+    function renderPartners(data) {
+      const groups = [
+        { key: "Confirmed", className: "confirmed" },
+        { key: "Negotiating", className: "negotiating" },
+        { key: "Idea", className: "idea" }
+      ];
 
-function parseRoadmapDate(value) {
-  if (!value) return null;
-  const parsed = new Date(value);
-  return Number.isNaN(parsed.valueOf()) ? null : parsed;
-}
+      const container = document.getElementById("partnerList");
+      container.className = "partner-status-board";
 
-function formatDate(value) {
-  if (!value) return 'TBD';
-  const parsed = new Date(value);
-  if (Number.isNaN(parsed.valueOf())) return String(value);
-  return parsed.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
-}
+      container.innerHTML = groups.map(group => {
+        const partners = data.partners.filter(
+          partner => normalize(partner.status) === normalize(group.key)
+        );
 
-function formatRoadmapDate(value) {
-  if (!value) return 'TBD';
-  return value.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
-}
+        return `
+          <section class="partner-status-column ${group.className}">
+            <div class="partner-column-head">
+              <div>
+                <span class="status-dot"></span>
+                <strong>${group.key}</strong>
+              </div>
+              <span class="partner-column-count">${partners.length}</span>
+            </div>
 
-function getEventAccentColor(event, partnerMap) {
-  const partnerIds = normalizeRoadmapPartnerIds(event.partnerIds);
-  if (!partnerIds.length) return 'var(--accent)';
-  if (partnerIds.length === 1) {
-    return partnerMap[partnerIds[0]]?.color || 'var(--accent)';
-  }
-  return partnerIds.slice(0, 3).map(partnerId => partnerMap[partnerId]?.color || 'var(--accent)').join(', ');
-}
+            <div class="partner-column-list">
+              ${partners.length
+                ? partners.map(partner => `
+                    <article class="partner-mini-card" data-searchable>
+                      <strong>${escapeHtml(partner.name)}</strong>
+                      <span>${escapeHtml(partner.project || "")}</span>
+                    </article>
+                  `).join("")
+                : '<div class="empty-state">No partners</div>'
+              }
+            </div>
+          </section>
+        `;
+      }).join("");
+    }
 
-function normalizeRoadmapPartnerId(value) {
-  return String(value ?? '').trim().toLowerCase();
-}
+    /* ---------- Search ---------- */
+    function setupSearch() {
+      const input = document.getElementById("dashboardSearch");
 
-function normalizeRoadmapPartnerIds(value) {
-  if (Array.isArray(value)) {
-    return value.map(normalizeRoadmapPartnerId).filter(Boolean);
-  }
-  if (typeof value === 'string') {
-    return value.split(/[,;]+/).map(normalizeRoadmapPartnerId).filter(Boolean);
-  }
-  return [];
-}
+      input.addEventListener("input", () => {
+        const query = normalize(input.value);
 
-function renderPartners(data) {
-  const partnerList = document.getElementById('partnerList');
-  if (!partnerList) return;
-  const partners = Array.isArray(data.partners) ? data.partners : [];
-  const groups = [
-    {key:'Confirmed', cls:'confirmed'},
-    {key:'Negotiating', cls:'negotiating'},
-    {key:'Idea', cls:'idea'}
-  ];
-  partnerList.className = 'partner-status-board';
-  partnerList.innerHTML = groups.map(group => {
-    const items = partners.filter(p => String(p.status || '').toLowerCase() === group.key.toLowerCase());
-    return `<section class="partner-status-column ${group.cls}">
-      <div class="partner-column-head"><div><span class="status-dot"></span><strong>${group.key}</strong></div><span>${items.length}</span></div>
-      <div class="partner-column-list">${items.map(partner => `<article class="partner-mini-card"><strong>${escapeHtml(partner.name)}</strong><span>${escapeHtml(partner.project || '')}</span></article>`).join('') || '<p class="partner-empty">No partners</p>'}</div>
-    </section>`;
-  }).join('');
-}
+        document.querySelectorAll("[data-searchable]").forEach(element => {
+          const visible = !query || normalize(element.textContent).includes(query);
+          element.classList.toggle("is-search-hidden", !visible);
+        });
+      });
+    }
 
-function renderTasks(data) {
-  const taskBoard = document.getElementById('taskBoard');
-  const taskCountDisplay = document.getElementById('taskCount');
-  if (!taskBoard) return;
+    /* ---------- Dark mode ---------- */
+    function setupDarkMode() {
+      const button = document.getElementById("darkModeButton");
 
-  const tasks = Array.isArray(data.tasks) ? data.tasks : [];
-  if (taskCountDisplay) {
-    const highPriorityCount = tasks.filter(task => task.priority?.toString().toLowerCase() === 'high').length;
-    taskCountDisplay.textContent = `${highPriorityCount} priority items`;
-  }
+      button.addEventListener("click", () => {
+        document.body.classList.toggle("dark");
+        button.textContent = document.body.classList.contains("dark") ? "Light" : "Dark";
+      });
+    }
 
-  if (!tasks.length) {
-    taskBoard.innerHTML = '<div class="roadmap-event-empty">No open items available.</div>';
-    return;
-  }
+    /* ---------- Utilities ---------- */
+    function setText(id, value) {
+      const element = document.getElementById(id);
+      if (element) element.textContent = value;
+    }
 
-  taskBoard.innerHTML = tasks
-    .map(task => {
-      const priorityClass = task.priority?.toString().toLowerCase() === 'high'
-        ? 'high'
-        : task.priority?.toString().toLowerCase() === 'medium'
-        ? 'medium'
-        : 'low';
-      return `
-        <article class="task-row">
-          <label class="task-main">
-            <input type="checkbox">
-            <span><strong>${escapeHtml(task.title)}</strong><small>${task.project ? `${escapeHtml(task.project)} · ` : ''}${task.due ? `Due ${escapeHtml(formatDate(task.due))}` : ''}</small></span>
-          </label>
-          <span class="priority ${priorityClass}">${escapeHtml(task.priority || 'Low')}</span>
-        </article>`;
-    })
-    .join('');
-}
+    function normalize(value) {
+      return String(value ?? "").trim().toLowerCase();
+    }
 
-function attachUiHandlers() {
-  const darkBtn = document.getElementById('darkModeButton');
-  if (darkBtn) {
-    darkBtn.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      darkBtn.textContent = document.body.classList.contains('dark') ? 'Light' : 'Dark';
-    });
-  }
-}
+    function formatDate(value) {
+      if (!value || normalize(value) === "tbd") return "TBD";
 
-function getPillClass(status, group) {
-  if (!status) return 'neutral';
-  const normalized = status.toString().toLowerCase();
-  const normalizedGroup = String(group || '').toLowerCase();
-  // For active projects, treat 'planning' and 'idea' as green (success)
-  if (normalizedGroup === 'active' && (normalized.includes('planning') || normalized.includes('idea'))) return 'success';
-  if (normalized.includes('on track') || normalized.includes('active')) return 'success';
-  if (normalized.includes('need') || normalized.includes('negotiating') || normalized.includes('warning')) return 'warning';
-  if (normalized.includes('confirmed') || normalized.includes('preparing')) return 'success';
-  if (normalized.includes('idea')) return 'accent';
-  return 'accent';
-}
+      const parsed = new Date(value);
+      if (Number.isNaN(parsed.getTime())) return String(value);
 
-function escapeHtml(value) {
-  return String(value ?? '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
+      return parsed.toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short"
+      });
+    }
 
-function setLastUpdated() {
-  const updateText = document.getElementById('lastUpdated');
-  if (!updateText) return;
-  const today = new Date();
-  const options = { day: '2-digit', month: 'short', year: 'numeric' };
-  updateText.textContent = `Last updated ${today.toLocaleDateString('en-GB', options)}`;
-}
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
 
-document.addEventListener('DOMContentLoaded', loadDashboard);
+    function setLastUpdated() {
+      const date = new Date().toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+      });
 
+      setText("lastUpdated", `Last updated ${date}`);
+    }
   </script>
 </body>
 </html>
