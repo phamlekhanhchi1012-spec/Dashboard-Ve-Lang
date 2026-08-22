@@ -825,22 +825,18 @@
           status: "Planning",
           group: "Active",
           description: "A structured training program with SpaceSpeakers.",
-          currentEvent: "Planning",
-          nextEvent: "TBD",
+          currentEvent: "Training with SS · Every Thursday",
+          nextEvent: "2026-08-27",
           partner: "SpaceSpeakers"
         },
         {
-          name: "ROAD TO REDLINE",
+          name: "Tentative Event",
           status: "Planning",
           group: "Active",
-          description: "Promoting REDLINE through two key Rumble events.",
-          currentEvent: "Rumble Event Series",
-          nextEvent: "2026-08-23",
-          partner: "REDLINE",
-          branches: [
-            { date: "2026-08-23", name: "Rumble × ActiveFox", partner: "ActiveFox × REDLINE" },
-            { date: "2026-09-13", name: "Rumble × Under Armour", partner: "Under Armour × REDLINE" }
-          ]
+          description: "Tentative event planned with Mizumi Sunscreen.",
+          currentEvent: "Tentative Event",
+          nextEvent: "2026-09-13",
+          partner: "Mizumi Sunscreen"
         },
         {
           name: "SS Music Run",
@@ -867,46 +863,39 @@
         { name: "Afterglow", project: "Beer Run", status: "Confirmed" },
         { name: "Revive", project: "Về Làng", status: "Confirmed" },
         { name: "Stretch.vn", project: "Về Làng", status: "Confirmed" },
-        { name: "REDLINE", project: "ROAD TO REDLINE", status: "Confirmed" },
+        { name: "MTB", project: "TBD", status: "Confirmed" },
         { name: "ONWAY", project: "Về Làng", status: "Negotiating" },
         { name: "SpaceSpeakers", project: "Training Program, SS Music Run", status: "Negotiating" },
         { name: "Mana Hydration", project: "Events", status: "Idea" },
         { name: "Bơnana", project: "Events - Vẽ Tranh", status: "Idea" },
-        { name: "Under Armour", project: "ROAD TO REDLINE", status: "Idea" },
-        { name: "ActiveFox", project: "ROAD TO REDLINE", status: "Confirmed" },
+        { name: "Under Armour", project: "TBD", status: "Idea" },
+        { name: "ActiveFox", project: "TBD", status: "Confirmed" },
         { name: "Sterik Cafe", project: "Vinyl Events", status: "Confirmed" },
-        { name: "Mizumi", project: "Events TBD", status: "Negotiating" }
+        { name: "Mizumi Sunscreen", project: "Tentative Event", status: "Negotiating" }
       ],
 
       roadmap: {
         partners: [
           { id: "activefox", name: "ActiveFox", role: "Training Partner", color: "#F26A2E" },
-          { id: "redline", name: "REDLINE", role: "Prize Sponsor & Media Partner", color: "#E83224" },
+          { id: "mtb", name: "MTB", role: "Partner", color: "#E83224" },
           { id: "pace", name: "PACE Training", role: "Training Platform Partner", color: "#2FAF7A" },
           { id: "revive", name: "Revive", role: "Community Partner", color: "#7A5CFF" },
           { id: "stretch", name: "Stretch.vn", role: "Recovery Partner", color: "#39A1C8" },
           { id: "onway", name: "ONWAY", role: "Strategic Partner", color: "#9A67EA" },
           { id: "under-armour", name: "Under Armour", role: "Sponsor Partner", color: "#1C6FD8" },
           { id: "spacespeakers", name: "SpaceSpeakers", role: "Communications Partner", color: "#F0A832" },
-          { id: "sterik", name: "Sterik Cafe", role: "Event Partner", color: "#FF0000" }
+          { id: "sterik", name: "Sterik Cafe", role: "Event Partner", color: "#FF0000" },
+          { id: "mizumi", name: "Mizumi Sunscreen", role: "Event Partner", color: "#5AA9E6" }
         ],
 
         events: [
           {
             id: "spacespeakers-01",
-            date: "2026-08-19",
-            dateLabel: "19 Aug",
-            title: "Training SpaceSpeakers",
-            type: "Training",
+            date: "2026-08-27",
+            dateLabel: "27 Aug",
+            title: "Training with SS",
+            type: "Every Thursday",
             partnerIds: ["pace", "spacespeakers"]
-          },
-          {
-            id: "redline-rumble-01",
-            date: "2026-08-23",
-            dateLabel: "23 Aug",
-            title: "REDLINE Program",
-            type: "Event",
-            partnerIds: ["activefox", "redline"]
           },
           {
             id: "vinyl",
@@ -917,12 +906,12 @@
             partnerIds: ["sterik"]
           },
           {
-            id: "under-armour-redline-01",
+            id: "tentative-event-01",
             date: "2026-09-13",
             dateLabel: "13 Sep",
-            title: "REDLINE × Under Armour",
-            type: "Collaboration",
-            partnerIds: ["under-armour", "redline"]
+            title: "Tentative Event",
+            type: "Tentative",
+            partnerIds: ["mizumi"]
           },
           {
             id: "ss-music-run-01",
