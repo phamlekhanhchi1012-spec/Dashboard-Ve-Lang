@@ -813,8 +813,8 @@
       projects: [
         {
           name: "Vinyl Events With Sterik",
-          status: "Planning",
-          group: "Active",
+          status: "Pending",
+          group: "On Hold",
           description: "Standalone experiences combining sport, culture and social connection.",
           currentEvent: "Workshop đĩa than",
           nextEvent: "2026-08-30",
@@ -825,33 +825,33 @@
           status: "Planning",
           group: "Active",
           description: "A structured training program with SpaceSpeakers.",
-          currentEvent: "Training with SS · Every Thursday",
-          nextEvent: "2026-08-27",
+          currentEvent: "Training with SS · Every Fri",
+          nextEvent: "2026-08-25",
           partner: "SpaceSpeakers"
         },
         {
-          name: "Tentative Event",
-          status: "Planning",
+          name: "Beer Run",
+          status: "Coming Up",
           group: "Active",
-          description: "Tentative event planned with Mizumi Sunscreen.",
-          currentEvent: "Tentative Event",
-          nextEvent: "2026-09-13",
-          partner: "Mizumi Sunscreen"
+          description: "A community run followed by beer and social night at Afterglow with East West Beer.",
+          currentEvent: "Beer Run · 26 Sep",
+          nextEvent: "2026-09-26",
+          partner: "Afterglow × East West Beer"
         },
         {
           name: "SS Music Run",
-          status: "On Hold",
+          status: "Pending",
           group: "On Hold",
-          description: "A music-driven run planned for September with sponsor integration.",
+          description: "A music-driven run planned with SpaceSpeakers; date pending.",
           currentEvent: "Concept Planning",
-          nextEvent: "September · TBD",
+          nextEvent: "TBD",
           partner: "SpaceSpeakers"
         },
         {
           name: "Về Làng",
-          status: "On Hold",
+          status: "Pending",
           group: "On Hold",
-          description: "A cultural series focused on stories, identity and shared experiences.",
+          description: "A cultural series focused on stories, identity and shared experiences; date pending.",
           currentEvent: "Về Làng #1",
           nextEvent: "TBD",
           partner: "Stretch.vn, PACE Training, ONWAY"
@@ -871,7 +871,6 @@
         { name: "Under Armour", project: "TBD", status: "Idea" },
         { name: "ActiveFox", project: "TBD", status: "Confirmed" },
         { name: "Sterik Cafe", project: "Vinyl Events", status: "Confirmed" },
-        { name: "Mizumi Sunscreen", project: "Tentative Event", status: "Negotiating" }
       ],
 
       roadmap: {
@@ -885,16 +884,17 @@
           { id: "under-armour", name: "Under Armour", role: "Sponsor Partner", color: "#1C6FD8" },
           { id: "spacespeakers", name: "SpaceSpeakers", role: "Communications Partner", color: "#F0A832" },
           { id: "sterik", name: "Sterik Cafe", role: "Event Partner", color: "#FF0000" },
-          { id: "mizumi", name: "Mizumi Sunscreen", role: "Event Partner", color: "#5AA9E6" }
+          { id: "afterglow", name: "Afterglow", role: "Event Partner", color: "#7A5CFF" },
+          { id: "east-west-beer", name: "East West Beer", role: "Beverage Partner", color: "#E83224" },
         ],
 
         events: [
           {
             id: "spacespeakers-01",
-            date: "2026-08-27",
-            dateLabel: "27 Aug",
+            date: "2026-08-25",
+            dateLabel: "25 Aug",
             title: "Training with SS",
-            type: "Every Thursday",
+            type: "Every Friday",
             partnerIds: ["pace", "spacespeakers"]
           },
           {
@@ -906,25 +906,25 @@
             partnerIds: ["sterik"]
           },
           {
-            id: "tentative-event-01",
-            date: "2026-09-13",
-            dateLabel: "13 Sep",
-            title: "Tentative Event",
-            type: "Tentative",
-            partnerIds: ["mizumi"]
+            id: "beer-run-01",
+            date: "2026-09-26",
+            dateLabel: "26 Sep",
+            title: "Beer Run",
+            type: "Coming Up",
+            partnerIds: ["afterglow", "east-west-beer"]
           },
           {
             id: "ss-music-run-01",
-            date: "2026-09-20",
-            dateLabel: "Sep · TBD",
+            date: null,
+            dateLabel: "TBD",
             title: "SS Music Run",
             type: "Launch",
             partnerIds: ["spacespeakers"]
           },
           {
             id: "ve-lang-01",
-            date: "2026-10-01",
-            dateLabel: "Oct · TBD",
+            date: null,
+            dateLabel: "TBD",
             title: "Về Làng #1",
             type: "Về Làng Event",
             partnerIds: ["revive", "stretch", "pace", "onway"]
