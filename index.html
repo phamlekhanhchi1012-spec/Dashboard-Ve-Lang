@@ -638,9 +638,7 @@
     .partner-mini-card strong { font-size: 13px; }
     .partner-mini-card span { margin-top: 4px; color: var(--muted); font-size: 11px; }
 
-    /* =========================
-       10) Search / footer
-    ========================== */
+  
     .is-search-hidden { display: none !important; }
 
     .footer {
@@ -817,26 +815,36 @@
           group: "On Hold",
           description: "Standalone experiences combining sport, culture and social connection.",
           currentEvent: "Workshop đĩa than",
-          nextEvent: "2026-08-30",
+          nextEvent: "TBD",
           partner: "Sterik Cafe and Urban Sketchers & District M"
         },
         {
           name: "Training Program with SS (Global City)",
-          status: "Planning",
+          status: "Every Week",
           group: "Active",
           description: "A structured training program with SpaceSpeakers.",
           currentEvent: "Training with SS · Every Fri",
-          nextEvent: "2026-08-25",
+          nextEvent: "2026-10-02",
           partner: "SpaceSpeakers"
         },
         {
-          name: "Beer Run",
+          name: "Beer Run Halloween",
           status: "Coming Up",
           group: "Active",
           description: "A community run followed by beer and social night at Afterglow with East West Beer.",
-          currentEvent: "Beer Run · 26 Sep",
-          nextEvent: "2026-09-26",
+          currentEvent: "Beer Run · 25 Oct",
+          nextEvent: "2026-10-25",
           partner: "Afterglow × East West Beer"
+        },
+        {
+          name: "OATSIDE × LANGHOOD",
+          status: "Coming Up",
+          group: "Active",
+          description: "A coffee-focused community event with OATSIDE.",
+          currentEvent: "OATSIDE × LANGHOOD · 11 Oct",
+          nextEvent: "2026-10-11",
+          partner: "OATSIDE",
+          location: "Dendau Coffee"
         },
         {
           name: "SS Music Run",
@@ -886,6 +894,7 @@
           { id: "sterik", name: "Sterik Cafe", role: "Event Partner", color: "#FF0000" },
           { id: "afterglow", name: "Afterglow", role: "Event Partner", color: "#7A5CFF" },
           { id: "east-west-beer", name: "East West Beer", role: "Beverage Partner", color: "#E83224" },
+          { id: "oatside", name: "OATSIDE", role: "Event Partner", color: "#7A5CFF" },
         ],
 
         events: [
@@ -912,6 +921,14 @@
             title: "Beer Run",
             type: "Coming Up",
             partnerIds: ["afterglow", "east-west-beer"]
+          },
+          {
+            id: "oatside-langhood-01",
+            date: "2026-10-11",
+            dateLabel: "11 Oct",
+            title: "OATSIDE × LANGHOOD",
+            type: "Event",
+            partnerIds: ["oatside"]
           },
           {
             id: "ss-music-run-01",
@@ -1053,6 +1070,11 @@
                   <span>Partner</span>
                   <strong>${escapeHtml(project.partner || "TBD")}</strong>
                 </div>
+                ${project.location ? `
+                <div>
+                  <span>Location</span>
+                  <strong>${escapeHtml(project.location)}</strong>
+                </div>` : ""}
               </div>
 
               <p>${escapeHtml(project.description || "")}</p>
