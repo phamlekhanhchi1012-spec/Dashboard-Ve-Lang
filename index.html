@@ -29,7 +29,6 @@
       --warning-soft: #fff6dc;
       --danger: #b83b2f;
       --danger-soft: #fff0ee;
-      --sidebar: #252424;
       --shadow: 0 10px 30px rgba(18, 18, 18, .04);
       --radius-lg: 20px;
       --radius-md: 14px;
@@ -44,7 +43,6 @@
       --text: #f5f5f5;
       --muted: #9a9a9a;
       --border: #2b2b2d;
-      --sidebar: #090909;
       --shadow: none;
     }
 
@@ -76,79 +74,7 @@
     .app-shell {
       min-height: 100vh;
       display: grid;
-      grid-template-columns: 240px minmax(0, 1fr);
-    }
-
-    .sidebar {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      padding: 26px 18px;
-      background: var(--sidebar);
-      color: #fff;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 0 8px;
-    }
-
-    .brand-mark {
-      width: 38px;
-      height: 38px;
-      display: grid;
-      place-items: center;
-      border-radius: 12px;
-      background: var(--accent);
-      font-weight: 700;
-    }
-
-    .brand strong,
-    .brand span { display: block; }
-    .brand strong { font-size: 14px; letter-spacing: .08em; }
-    .brand span { margin-top: 2px; color: #8f8f8f; font-size: 12px; }
-
-    .nav-list {
-      display: grid;
-      gap: 6px;
-      margin-top: 38px;
-    }
-
-    .nav-item {
-      padding: 11px 14px;
-      border-radius: 10px;
-      color: #a8a8a8;
-      font-size: 14px;
-      transition: .18s ease;
-    }
-
-    .nav-item:hover {
-      color: #fff;
-      background: #1c1c1c;
-    }
-
-    .nav-item.active {
-      color: #fff;
-      background: #202020;
-      box-shadow: inset 3px 0 0 var(--accent);
-    }
-
-    .sidebar-note {
-      margin-top: auto;
-      padding: 16px;
-      border: 1px solid #2a2a2a;
-      border-radius: 14px;
-      background: #181818;
-    }
-
-    .sidebar-note p {
-      margin: 8px 0 0;
-      color: #aaa;
-      font-size: 12px;
+      grid-template-columns: minmax(0, 1fr);
     }
 
     .main-content {
@@ -638,7 +564,9 @@
     .partner-mini-card strong { font-size: 13px; }
     .partner-mini-card span { margin-top: 4px; color: var(--muted); font-size: 11px; }
 
-  
+    /* =========================
+       10) Search / footer
+    ========================== */
     .is-search-hidden { display: none !important; }
 
     .footer {
@@ -661,18 +589,6 @@
 
     @media (max-width: 820px) {
       .app-shell { grid-template-columns: 1fr; }
-      .sidebar {
-        position: static;
-        height: auto;
-        padding: 16px;
-      }
-      .nav-list {
-        margin-top: 18px;
-        display: flex;
-        overflow-x: auto;
-      }
-      .nav-item { white-space: nowrap; }
-      .sidebar-note { display: none; }
       .main-content { padding: 24px 18px 36px; }
       .topbar { flex-direction: column; }
       .header-actions,
@@ -697,29 +613,7 @@
 
 <body>
   <div class="app-shell">
-    <aside class="sidebar">
-      <div class="brand">
-        <div class="brand-mark">L</div>
-        <div>
-          <strong>LANGHOOD</strong>
-          <span>Project Hub</span>
-        </div>
-      </div>
-
-      <nav class="nav-list">
-        <a class="nav-item active" href="#dashboard">Dashboard</a>
-        <a class="nav-item" href="#projects">Projects & Timeline</a>
-        <a class="nav-item" href="#roadmap">Roadmap</a>
-        <a class="nav-item" href="#partnerships">Partnerships</a>
-      </nav>
-
-      <div class="sidebar-note">
-        <span class="eyebrow">Team</span>
-        <p id="teamList"></p>
-      </div>
-    </aside>
-
-    <main class="main-content" id="dashboard">
+<main class="main-content" id="dashboard">
       <header class="topbar">
         <div>
           <span class="eyebrow">LANGHOOD OPERATIONS</span>
@@ -810,25 +704,26 @@
 
       projects: [
         {
-          name: "Vinyl Events With Sterik",
+          name: "Event with Under Armour",
           status: "Pending",
           group: "On Hold",
-          description: "Standalone experiences combining sport, culture and social connection.",
-          currentEvent: "Workshop đĩa than",
+          description: "Event with Under Armour planned for November; exact date to be confirmed.",
+          currentEvent: "November · Date TBD",
           nextEvent: "TBD",
-          partner: "Sterik Cafe and Urban Sketchers & District M"
+          partner: "Under Armour"
         },
+        
         {
-          name: "Training Program with SS (Global City)",
-          status: "Every Week",
+          name: "Tattoos Move",
+          status: "Coming Up",
           group: "Active",
-          description: "A structured training program with SpaceSpeakers.",
-          currentEvent: "Training with SS · Every Fri",
-          nextEvent: "2026-10-02",
-          partner: "SpaceSpeakers"
+          description: "A community movement event in collaboration with BANHDONUT.",
+          currentEvent: "Tattoos Move · 18 Oct",
+          nextEvent: "2026-10-18",
+          partner: "BANHDONUT"
         },
         {
-          name: "Beer Run Halloween",
+          name: "Beer Run",
           status: "Coming Up",
           group: "Active",
           description: "A community run followed by beer and social night at Afterglow with East West Beer.",
@@ -837,63 +732,81 @@
           partner: "Afterglow × East West Beer"
         },
         {
-          name: "OATSIDE × LANGHOOD",
-          status: "Coming Up",
-          group: "Active",
-          description: "A coffee-focused community event with OATSIDE.",
-          currentEvent: "OATSIDE × LANGHOOD · 11 Oct",
-          nextEvent: "2026-10-11",
-          partner: "OATSIDE",
-          location: "Dendau Coffee"
-        },
-        {
-          name: "SS Music Run",
+          name: "Event with SS (Hyrox on the beat)",
           status: "Pending",
           group: "On Hold",
-          description: "A music-driven run planned with SpaceSpeakers; date pending.",
-          currentEvent: "Concept Planning",
+          description: "Hyrox on the beat event with SpaceSpeakers; date pending.",
+          currentEvent: "Hyrox on the beat · November, date TBD",
           nextEvent: "TBD",
           partner: "SpaceSpeakers"
         },
         {
+          name: "Dân làng đi trail: Langbiang",
+          status: "Coming Up",
+          group: "Active",
+          description: "A community trail outing in Langbiang.",
+          currentEvent: "Dân làng đi trail: Langbiang · 7 Nov",
+          nextEvent: "2026-11-07",
+          partner: "LANGHOOD"
+        },
+        {
+          name: "Dalat Social Run",
+          status: "Coming Up",
+          group: "Active",
+          description: "A community run and social gathering in Da Lat.",
+          currentEvent: "Dalat Social Run · 8 Nov",
+          nextEvent: "2026-11-08",
+          partner: "LANGHOOD"
+        },
+        {
           name: "Về Làng",
-          status: "Pending",
-          group: "On Hold",
-          description: "A cultural series focused on stories, identity and shared experiences; date pending.",
-          currentEvent: "Về Làng #1",
-          nextEvent: "TBD",
+          status: "Coming Up",
+          group: "Active",
+          description: "A cultural series focused on stories, identity and shared experiences.",
+          currentEvent: "Về Làng · 21–22 Nov",
+          nextEvent: "2026-11-21",
           partner: "Stretch.vn, PACE Training, ONWAY"
         },
         {
-         name: "HyRox on the Beat",
-          status: "Planning",
-          group: "On Hold",
-          description: "Private event with SS",
-          partner: "SS"
-
+          name: "Vung Tau City Trail",
+          status: "Coming Up",
+          group: "Active",
+          description: "A city trail event in Vung Tau.",
+          currentEvent: "Vung Tau City Trail · 27–28 Nov",
+          nextEvent: "2026-11-27",
+          partner: "TBD"
+        },
+        {
+          name: "Drinking and Healing (DH)",
+          status: "Coming Up",
+          group: "Active",
+          description: "Event details to be added.",
+          currentEvent: "Drinking and Healing · 26–27 Dec",
+          nextEvent: "2026-12-26",
+          partner: "TBD"
         }
       ],
 
       partners: [
-        { name: "PACE Training", project: "Training Program", status: "Confirmed" },
+        { name: "PACE Training", project: "Về Làng", status: "Confirmed" },
         { name: "Afterglow", project: "Beer Run", status: "Confirmed" },
         { name: "Revive", project: "Về Làng", status: "Confirmed" },
         { name: "Stretch.vn", project: "Về Làng", status: "Confirmed" },
         { name: "MTB", project: "TBD", status: "Confirmed" },
         { name: "ONWAY", project: "Về Làng", status: "Negotiating" },
-        { name: "SpaceSpeakers", project: "Training Program, SS Music Run", status: "Negotiating" },
+        { name: "SpaceSpeakers", project: "Event with SS (Hyrox on the beat)", status: "Negotiating" },
         { name: "Mana Hydration", project: "Events", status: "Idea" },
         { name: "Bơnana", project: "Events - Vẽ Tranh", status: "Idea" },
         { name: "Under Armour", project: "TBD", status: "Idea" },
         { name: "ActiveFox", project: "TBD", status: "Confirmed" },
         { name: "Sterik Cafe", project: "Vinyl Events", status: "Confirmed" },
+        { name: "BANHDONUT", project: "Tattoos Move", status: "To Confirm" },
       ],
 
       roadmap: {
         partners: [
           { id: "activefox", name: "ActiveFox", role: "Training Partner", color: "#F26A2E" },
           { id: "mtb", name: "MTB", role: "Partner", color: "#E83224" },
-          { id: "pace", name: "PACE Training", role: "Training Platform Partner", color: "#2FAF7A" },
           { id: "revive", name: "Revive", role: "Community Partner", color: "#7A5CFF" },
           { id: "stretch", name: "Stretch.vn", role: "Recovery Partner", color: "#39A1C8" },
           { id: "onway", name: "ONWAY", role: "Strategic Partner", color: "#9A67EA" },
@@ -902,58 +815,54 @@
           { id: "sterik", name: "Sterik Cafe", role: "Event Partner", color: "#FF0000" },
           { id: "afterglow", name: "Afterglow", role: "Event Partner", color: "#7A5CFF" },
           { id: "east-west-beer", name: "East West Beer", role: "Beverage Partner", color: "#E83224" },
-          { id: "oatside", name: "OATSIDE", role: "Event Partner", color: "#7A5CFF" },
+          { id: "banhdonut", name: "BANHDONUT", role: "Event Partner", color: "#F0A832" },
         ],
 
         events: [
-          {
-            id: "spacespeakers-01",
-            date: "2026-08-25",
-            dateLabel: "25 Aug",
-            title: "Training with SS",
-            type: "Every Friday",
-            partnerIds: ["pace", "spacespeakers"]
-          },
-          {
-            id: "vinyl",
-            date: "2026-08-30",
-            dateLabel: "30 Aug",
-            title: "Vinyl Event",
-            type: "Event",
-            partnerIds: ["sterik"]
-          },
+          
+          
           {
             id: "beer-run-01",
-            date: "2026-09-26",
-            dateLabel: "26 Sep",
+            date: "2026-10-31",
+            dateLabel: "31 Oct",
             title: "Beer Run",
             type: "Coming Up",
             partnerIds: ["afterglow", "east-west-beer"]
           },
           {
-            id: "oatside-langhood-01",
-            date: "2026-10-11",
-            dateLabel: "11 Oct",
-            title: "OATSIDE × LANGHOOD",
-            type: "Event",
-            partnerIds: ["oatside"]
+            id: "langbiang-trail-01",
+            date: "2026-11-07",
+            dateLabel: "7 Nov",
+            title: "Dân làng đi trail: Langbiang",
+            type: "Trail Event",
+            partnerIds: []
           },
           {
-            id: "ss-music-run-01",
-            date: null,
-            dateLabel: "TBD",
-            title: "SS Music Run",
-            type: "Launch",
-            partnerIds: ["spacespeakers"]
+            id: "dalat-social-run-01",
+            date: "2026-11-08",
+            dateLabel: "8 Nov",
+            title: "Dalat Social Run",
+            type: "Community Run",
+            partnerIds: []
           },
           {
             id: "ve-lang-01",
-            date: null,
-            dateLabel: "TBD",
-            title: "Về Làng #1",
+            date: "2026-11-21",
+            dateLabel: "21–22 Nov",
+            title: "Về Làng",
             type: "Về Làng Event",
             partnerIds: ["revive", "stretch", "pace", "onway"]
+          },
+          
+          {
+            id: "vung-tau-city-trail-01",
+            date: "2026-11-27",
+            dateLabel: "27–28 Nov",
+            title: "Vung Tau City Trail",
+            type: "Trail Event",
+            partnerIds: []
           }
+
         ]
       }
     };
